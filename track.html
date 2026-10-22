@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carpet Care - Track Carpet</title>
+</head>
+
+<body>
+
+    <h1>🧼 Carpet Care</h1>
+
+    <h2>Track Your Carpet</h2>
+
+    <p>Enter your Carpet ID below:</p>
+
+    <input type="text" id="carpetId" placeholder="e.g. CC-001">
+
+    <button onclick="trackCarpet()">Track Carpet</button>
+
+    <hr>
+
+    <div id="carpetDetails"></div>
+
+
+    <script>
+
+        function trackCarpet() {
+
+            let carpetId = document.getElementById("carpetId").value.trim();
+
+            let carpets =
+                JSON.parse(localStorage.getItem("carpets")) || [];
+
+            let carpet = carpets.find(function(item) {
+                return item.id === carpetId;
+            });
+
+
+            if (!carpet) {
+
+                document.getElementById("carpetDetails").innerHTML =
+                    "<p>❌ We could not find that Carpet ID.</p>";
+
+                return;
+            }
+
+
+            document.getElementById("carpetDetails").innerHTML =
+
+                "<h3>Carpet Information</h3>" +
+
+                "<p><strong>Carpet ID:</strong> " +
+                carpet.id + "</p>" +
+
+                "<p><strong>Size:</strong> " +
+                carpet.length + " × " +
+                carpet.width + " ft</p>" +
+
+                "<p><strong>Cleaning Price:</strong> KSh " +
+                carpet.price.toLocaleString("en-KE") + "</p>" +
+
+                "<h3>Order Status</h3>" +
+
+                "<p>🟡 " + carpet.status + "</p>";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

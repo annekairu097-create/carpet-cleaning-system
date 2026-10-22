@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Carpet Care - Admin</title>
+</head>
+
+<body>
+
+    <h1>🧼 Carpet Care</h1>
+    <h2>Admin Dashboard</h2>
+
+    <hr>
+
+    <h3>➕ Add New Carpet</h3>
+
+    <label>Carpet ID:</label>
+    <input type="text" id="carpetId" placeholder="e.g. CC-0001">
+
+    <br><br>
+
+    <label>Length (ft):</label>
+    <input type="number" id="length" placeholder="e.g. 5">
+
+    <br><br>
+
+    <label>Width (ft):</label>
+    <input type="number" id="width" placeholder="e.g. 7">
+
+    <br><br>
+
+    <button onclick="calculatePrice()">Calculate Price</button>
+
+    <h3>Price</h3>
+
+    <p id="result"></p>
+
+    <h3>Order Status</h3>
+
+    <select id="status">
+        <option value="Received">🟡 Received</option>
+        <option value="Processing">🔵 Being Processed</option>
+        <option value="Ready">🟢 Ready for Collection</option>
+        <option value="Out for Delivery">🚚 Out for Delivery</option>
+        <option value="Delivered">✅ Delivered</option>
+    </select>
+
+    <br><br>
+
+    <button onclick="saveCarpet()">💾 Save Carpet</button>
+
+    <p id="savedMessage"></p>
+
+    <hr>
+
+    <h3>📋 Carpet List</h3>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Carpet ID</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="carpetList"></tbody>
+    </table>
+
+
+    <script>
+
+        function calculatePrice() {
+
+            let length = parseFloat(
+                document.getElementById("length").value
+            );
+
+            let width = parseFloat(
+                document.getElementById("width").value
+            );
+
+            if (isNaN(length) || isNaN(width) || length <= 0 || width <= 0) {
+
+                document.getElementById("result").innerHTML =
+                    "Please enter a valid length and width.";
+
+                return;
+            }
+
+            let area = length * width;
+            let price = area * 30;
+
+            document.getElementById("result").innerHTML =
+                "Area: " + area.toFixed(2) + " sq ft" +
+                "<br>Cleaning Price: KSh " +
+                price.toLocaleString("en-KE");
+        }
+
+
+        function saveCarpet() {
+
+            let carpetId = document.getElementById("carpetId").value;
+
+            let length = parseFloat(
+                document.getElementById("length").value
+            );
+
+            let width = parseFloat(
+                document.getElementById("width").value
+            );
+
+            let status = document.getElementById("status").value;
+
+
+            if (
+                carpetId === "" ||
+                isNaN(length) ||
+                isNaN(width) ||
+                length <= 0 ||
+                width <= 0
+            ) {
+
+                document.getElementById("savedMessage").innerHTML =
+                    "Please enter the Carpet ID, length and width.";
+
+                return;
+            }
+
+
+            let area = length * width;
+            let price = area * 30;
+            let carpet = {
+    id: carpetId,
+    length: length,
+    width: width,
+    price: price,
+    status: status
+};
+
+let carpets = JSON.parse(localStorage.getItem("carpets")) || [];
+
+carpets.push(carpet);
+
+localStorage.setItem("carpets", JSON.stringify(carpets));
+
+
+            document.getElementById("savedMessage").innerHTML =
+                "✅ Carpet " + carpetId + " has been saved!" +
+                "<br>Size: " + length + " × " + width + " ft" +
+                "<br>Price: KSh " + price.toLocaleString("en-KE") +
+                "<br>Status: " + status;
+
+
+            let table = document.getElementById("carpetList");
+
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML = carpetId;
+
+            row.insertCell(1).innerHTML =
+                length + " × " + width + " ft";
+
+            row.insertCell(2).innerHTML =
+                "KSh " + price.toLocaleString("en-KE");
+
+            row.insertCell(3).innerHTML = status;
+        }
+function loadCarpets() {
+
+    let carpets = JSON.parse(localStorage.getItem("carpets")) || [];
+
+    let table = document.getElementById("carpetList");
+
+    carpets.forEach(function(carpet) {
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerHTML = carpet.id;
+
+        row.insertCell(1).innerHTML =
+            carpet.length + " × " + carpet.width + " ft";
+
+        row.insertCell(2).innerHTML =
+            "KSh " + carpet.price.toLocaleString("en-KE");
+
+        row.insertCell(3).innerHTML = carpet.status;
+
+    });
+}
+
+loadCarpets();
+    </script>
+
+
+</body>
+
+</html>
