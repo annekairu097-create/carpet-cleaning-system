@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carpet Care - Track Carpet</title>
 </head>
 
@@ -14,35 +16,116 @@
 
     <p>Enter your Carpet ID below:</p>
 
-    <input type="text" id="carpetId" placeholder="e.g. CC-001">
+    <input
+        type="text"
+        id="carpetId"
+        placeholder="e.g. CC-002"
+    >
 
-    <button onclick="trackCarpet()">Track Carpet</button>
+    <button onclick="trackCarpet()">
+        Track Carpet
+    </button>
 
     <hr>
 
     <div id="carpetDetails"></div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
 
-        function trackCarpet() {
+        const SUPABASE_URL =
+            "https://zrqbawumswnoxfovsyoe.supabase.co";
 
-            let carpetId = document.getElementById("carpetId").value.trim();
+        const SUPABASE_KEY =
+            "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
 
-            let carpets =
-                JSON.parse(localStorage.getItem("carpets")) || [];
+        const supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
 
-            let carpet = carpets.find(function(item) {
-                return item.id === carpetId;
-            });
+
+        async function trackCarpet() {
+
+            const carpetId =
+                document.getElementById("carpetId")
+                    .value
+                    .trim()
+                    .toUpperCase();
 
 
-            if (!carpet) {
+            if (carpetId === "") {
 
                 document.getElementById("carpetDetails").innerHTML =
-                    "<p>❌ We could not find that Carpet ID.</p>";
+                    "<p>⚠️ Please enter your Carpet ID.</p>";
 
                 return;
+            }
+
+
+            document.getElementById("carpetDetails").innerHTML =
+                "<p>🔍 Searching for your carpet...</p>";
+
+
+            const { data, error } =
+                await supabaseClient
+                    .from("carpet_orders")
+                    .select("*")
+                    .eq("carpet_id", carpetId)
+                    .single();
+
+
+            if (error || !data) {
+
+                console.error(error);
+
+                document.getElementById("carpetDetails").innerHTML =
+                    "<p>❌ We could not find that Carpet ID.</p>" +
+                    "<p>Please check the ID and try again.</p>";
+
+                return;
+            }
+
+
+            let customerStatus = data.status;
+
+
+            if (data.status === "Received") {
+
+                customerStatus =
+                    "🟡 Carpet Received";
+
+            }
+
+            else if (data.status === "Processing") {
+
+                customerStatus =
+                    "🔵 Carpet Being Processed";
+
+            }
+
+            else if (data.status === "Ready") {
+
+                customerStatus =
+                    "🟢 Ready for Collection";
+
+            }
+
+            else if (data.status === "Out for Delivery") {
+
+                customerStatus =
+                    "🚚 Out for Delivery";
+
+            }
+
+            else if (data.status === "Delivered") {
+
+                customerStatus =
+                    "✅ Delivered";
+
             }
 
 
@@ -51,18 +134,49 @@
                 "<h3>Carpet Information</h3>" +
 
                 "<p><strong>Carpet ID:</strong> " +
-                carpet.id + "</p>" +
+                data.carpet_id +
+                "</p>" +
 
                 "<p><strong>Size:</strong> " +
-                carpet.length + " × " +
-                carpet.width + " ft</p>" +
+                data.length +
+                " × " +
+                data.width +
+                " ft</p>" +
 
                 "<p><strong>Cleaning Price:</strong> KSh " +
-                carpet.price.toLocaleString("en-KE") + "</p>" +
+                Number(data.price)
+                    .toLocaleString("en-KE") +
+                "</p>" +
 
                 "<h3>Order Status</h3>" +
 
-                "<p>🟡 " + carpet.status + "</p>";
+                "<p>" +
+                customerStatus +
+                "</p>";
+
+        }
+
+
+        /*
+         * Automatically read Carpet ID from the URL
+         *
+         * Example:
+         * track.html?id=CC-002
+         */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const carpetIdFromURL =
+            urlParams.get("id");
+
+
+        if (carpetIdFromURL) {
+
+            document.getElementById("carpetId").value =
+                carpetIdFromURL.toUpperCase();
+
+            trackCarpet();
 
         }
 
