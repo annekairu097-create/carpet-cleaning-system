@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cleanova Cleaning Solutions - Admin</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f3fc;
+            color: #222;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+
+        .header h1 {
+            margin: 0;
+            font-size: 34px;
+        }
+
+
+        .header p {
+            margin: 7px 0 0;
+            font-size: 15px;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+
+        /* CARD */
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(75, 22, 140, 0.10);
+        }
+
+
+        .card h2 {
+            margin-top: 0;
+            color: #4b168c;
+        }
+
+
+        /* FORM */
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d4c5e8;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #7b2cbf;
+        }
+
+
+        .carpet-id {
+            background: #f4edff;
+            color: #5a189a;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+        /* PRICE */
+
+        .price-box {
+            margin-top: 20px;
+            padding: 18px;
+            background: #f4edff;
+            border-radius: 10px;
+            color: #5a189a;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* BUTTON */
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 9px;
+            background: #7b2cbf;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        button:hover {
+            background: #5a189a;
+        }
+
+
+        /* MESSAGE */
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+
+        th {
+            background: #7b2cbf;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+
+        tr:hover {
+            background: #faf7ff;
+        }
+
+
+        .status-select {
+            width: auto;
+            min-width: 180px;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+
+        .update-button {
+            width: auto;
+            margin-top: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin: 30px 0;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 0 12px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .status-select {
+                min-width: 150px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>Cleanova</h1>
+
+        <p>Cleaning Solutions — Admin Dashboard</p>
+
+    </div>
+
+
+
+    <div class="container">
+
+
+        <!-- ADD CARPET -->
+
+        <div class="card">
+
+            <h2>➕ Add New Carpet</h2>
+
+
+            <label>Carpet ID</label>
+
+            <input
+                type="text"
+                id="carpetId"
+                class="carpet-id"
+                readonly
+            >
+
+
+            <label>Length (ft)</label>
+
+            <input
+                type="number"
+                id="length"
+                placeholder="e.g. 5"
+                min="0"
+                step="0.01"
+                oninput="calculatePrice()"
+            >
+
+
+            <label>Width (ft)</label>
+
+            <input
+                type="number"
+                id="width"
+                placeholder="e.g. 7"
+                min="0"
+                step="0.01"
+                oninput="calculatePrice()"
+            >
+
+
+            <div
+                id="priceResult"
+                class="price-box"
+            >
+                Enter the carpet length and width.
+            </div>
+
+
+            <label>Order Status</label>
+
+            <select id="status">
+
+                <option value="Received">
+                    🟡 Received
+                </option>
+
+                <option value="Processing">
+                    🔵 Being Processed
+                </option>
+
+                <option value="Ready">
+                    🟢 Ready for Collection
+                </option>
+
+                <option value="Out for Delivery">
+                    🚚 Out for Delivery
+                </option>
+
+                <option value="Delivered">
+                    ✅ Delivered
+                </option>
+
+            </select>
+
+
+            <button onclick="saveCarpet()">
+
+                💾 Save Carpet
+
+            </button>
+
+
+            <div
+                id="savedMessage"
+                class="message"
+            ></div>
+
+        </div>
+
+
+
+        <!-- CARPET LIST -->
+
+        <div class="card">
+
+            <h2>📋 Carpet List</h2>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Carpet ID
+                            </th>
+
+                            <th>
+                                Size
+                            </th>
+
+                            <th>
+                                Price
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Update Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="carpetList"
+                    ></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="footer">
+
+            <strong>Cleanova Cleaning Solutions</strong>
+
+            <br>
+
+            Professional • Reliable • Trusted
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+
+        const SUPABASE_URL =
+            "https://zrqbawumswnoxfovsyoe.supabase.co";
+
+
+        const SUPABASE_KEY =
+            "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
+
+
+        const supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+
+        /*
+         * CALCULATE PRICE
+         *
+         * Cleanova price:
+         * KSh 30 per square foot
+         */
+
+        function calculatePrice() {
+
+
+            const length =
+                parseFloat(
+                    document.getElementById("length").value
+                );
+
+
+            const width =
+                parseFloat(
+                    document.getElementById("width").value
+                );
+
+
+            if (
+                isNaN(length) ||
+                isNaN(width) ||
+                length <= 0 ||
+                width <= 0
+            ) {
+
+                document.getElementById("priceResult").innerHTML =
+                    "Enter the carpet length and width.";
+
+                return;
+
+            }
+
+
+            const area =
+                length * width;
+
+
+            const price =
+                area * 30;
+
+
+            document.getElementById("priceResult").innerHTML =
+
+                "Area: " +
+                area.toFixed(2) +
+                " sq ft" +
+
+                "<br><br>" +
+
+                "Cleaning Price: KSh " +
+
+                price.toLocaleString("en-KE");
+
+        }
+
+
+
+        /*
+         * GET NEXT CARPET ID
+         */
+
+        async function getNextCarpetId() {
+
+
+            const { data, error } =
+
+                await supabaseClient
+
+                    .from("carpet_orders")
+
+                    .select("carpet_id");
+
+
+            if (error) {
+
+                console.error(error);
+
+                return null;
+
+            }
+
+
+            let highestNumber = 0;
+
+
+            if (data) {
+
+                data.forEach(function(carpet) {
+
+
+                    const id =
+                        carpet.carpet_id;
+
+
+                    if (!id) {
+                        return;
+                    }
+
+
+                    const match =
+                        id.match(/^CC-(\d+)$/i);
+
+
+                    if (match) {
+
+
+                        const number =
+                            parseInt(
+                                match[1],
+                                10
+                            );
+
+
+                        if (
+                            number >
+                            highestNumber
+                        ) {
+
+                            highestNumber =
+                                number;
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+
+            const nextNumber =
+                highestNumber + 1;
+
+
+            return (
+                "CC-" +
+                String(nextNumber)
+                    .padStart(3, "0")
+            );
+
+        }
+
+
+
+        /*
+         * SHOW NEXT CARPET ID
+         */
+
+        async function showNextCarpetId() {
+
+
+            const nextId =
+                await getNextCarpetId();
+
+
+            if (nextId) {
+
+                document.getElementById(
+                    "carpetId"
+                ).value = nextId;
+
+            }
+
+        }
+
+
+
+        /*
+         * SAVE CARPET
+         */
+
+        async function saveCarpet() {
+
+
+            const carpetId =
+                document.getElementById(
+                    "carpetId"
+                ).value.trim();
+
+
+            const length =
+                parseFloat(
+                    document.getElementById(
+                        "length"
+                    ).value
+                );
+
+
+            const width =
+                parseFloat(
+                    document.getElementById(
+                        "width"
+                    ).value
+                );
+
+
+            const status =
+                document.getElementById(
+                    "status"
+                ).value;
+
+
+            if (
+
+                carpetId === "" ||
+
+                isNaN(length) ||
+
+                isNaN(width) ||
+
+                length <= 0 ||
+
+                width <= 0
+
+            ) {
+
+
+                document.getElementById(
+                    "savedMessage"
+                ).innerHTML =
+
+                    "⚠️ Please enter the carpet length and width.";
+
+                return;
+
+            }
+
+
+
+            const area =
+                length * width;
+
+
+            const price =
+                area * 30;
+
+
+
+            const { error } =
+
+                await supabaseClient
+
+                    .from("carpet_orders")
+
+                    .insert([
+
+                        {
+
+                            carpet_id:
+                                carpetId,
+
+                            length:
+                                length,
+
+                            width:
+                                width,
+
+                            price:
+                                price,
+
+                            status:
+                                status
+
+                        }
+
+                    ]);
+
+
+
+            if (error) {
+
+                console.error(error);
+
+
+                document.getElementById(
+                    "savedMessage"
+                ).innerHTML =
+
+                    "❌ Could not save carpet. " +
+                    error.message;
+
+                return;
+
+            }
+
+
+
+            document.getElementById(
+                "savedMessage"
+            ).innerHTML =
+
+                "✅ Carpet " +
+                carpetId +
+                " has been saved successfully!";
+
+
+
+            /*
+             * Clear form
+             */
+
+            document.getElementById(
+                "length"
+            ).value = "";
+
+
+            document.getElementById(
+                "width"
+            ).value = "";
+
+
+            document.getElementById(
+                "priceResult"
+            ).innerHTML =
+
+                "Enter the carpet length and width.";
+
+
+
+            /*
+             * Generate next ID
+             */
+
+            await showNextCarpetId();
+
+
+            /*
+             * Refresh carpet list
+             */
+
+            loadCarpets();
+
+        }
+
+
+
+        /*
+         * UPDATE STATUS
+         */
+
+        async function updateStatus(
+            carpetId,
+            newStatus
+        ) {
+
+
+            const { error } =
+
+                await supabaseClient
+
+                    .from("carpet_orders")
+
+                    .update({
+
+                        status:
+                            newStatus
+
+                    })
+
+                    .eq(
+                        "carpet_id",
+                        carpetId
+                    );
+
+
+
+            if (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Could not update status. " +
+                    error.message
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "✅ " +
+                carpetId +
+                " status updated to " +
+                newStatus
+            );
+
+
+            /*
+             * Refresh the table
+             */
+
+            loadCarpets();
+
+        }
+
+
+
+        /*
+         * LOAD CARPETS
+         */
+
+        async function loadCarpets() {
+
+
+            const { data, error } =
+
+                await supabaseClient
+
+                    .from("carpet_orders")
+
+                    .select("*")
+
+                    .order(
+                        "id",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+
+            if (error) {
+
+                console.error(error);
+
+
+                document.getElementById(
+                    "savedMessage"
+                ).innerHTML =
+
+                    "❌ Could not load carpets. " +
+                    error.message;
+
+                return;
+
+            }
+
+
+
+            const table =
+                document.getElementById(
+                    "carpetList"
+                );
+
+
+            table.innerHTML = "";
+
+
+
+            data.forEach(
+                function(carpet) {
+
+
+                    const row =
+                        table.insertRow();
+
+
+                    row.insertCell(0).innerHTML =
+                        carpet.carpet_id;
+
+
+                    row.insertCell(1).innerHTML =
+
+                        carpet.length +
+                        " × " +
+                        carpet.width +
+                        " ft";
+
+
+                    row.insertCell(2).innerHTML =
+
+                        "KSh " +
+
+                        Number(
+                            carpet.price
+                        )
+                        .toLocaleString(
+                            "en-KE"
+                        );
+
+
+                    row.insertCell(3).innerHTML =
+                        carpet.status;
+
+
+
+                    /*
+                     * STATUS UPDATE CELL
+                     */
+
+                    const statusCell =
+                        row.insertCell(4);
+
+
+                    const select =
+                        document.createElement(
+                            "select"
+                        );
+
+
+                    select.className =
+                        "status-select";
+
+
+                    const statuses = [
+
+                        "Received",
+                        "Processing",
+                        "Ready",
+                        "Out for Delivery",
+                        "Delivered"
+
+                    ];
+
+
+                    statuses.forEach(
+                        function(status) {
+
+
+                            const option =
+                                document.createElement(
+                                    "option"
+                                );
+
+
+                            option.value =
+                                status;
+
+
+                            option.textContent =
+                                status;
+
+
+                            if (
+                                status ===
+                                carpet.status
+                            ) {
+
+                                option.selected =
+                                    true;
+
+                            }
+
+
+                            select.appendChild(
+                                option
+                            );
+
+                        }
+                    );
+
+
+                    statusCell.appendChild(
+                        select
+                    );
+
+
+
+                    /*
+                     * UPDATE BUTTON
+                     */
+
+                    const updateButton =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    updateButton.className =
+                        "update-button";
+
+
+                    updateButton.textContent =
+                        "Update";
+
+
+                    updateButton.onclick =
+                        function() {
+
+
+                            updateStatus(
+
+                                carpet.carpet_id,
+
+                                select.value
+
+                            );
+
+                        };
+
+
+                    statusCell.appendChild(
+                        updateButton
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /*
+         * START ADMIN DASHBOARD
+         */
+
+        showNextCarpetId();
+
+        loadCarpets();
+
+
+    </script>
+
+
+</body>
+
+</html>
