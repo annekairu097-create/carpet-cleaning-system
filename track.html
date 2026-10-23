@@ -94,23 +94,36 @@
 
             if (data.status === "Received") {
 
-                customerStatus = "🟡 Carpet Received";
+                customerStatus =
+                    "🟡 Carpet Received";
 
-            } else if (data.status === "Processing") {
+            }
 
-                customerStatus = "🔵 Carpet Being Processed";
+            else if (data.status === "Processing") {
 
-            } else if (data.status === "Ready") {
+                customerStatus =
+                    "🔵 Carpet Being Processed";
 
-                customerStatus = "🟢 Ready for Collection";
+            }
 
-            } else if (data.status === "Out for Delivery") {
+            else if (data.status === "Ready") {
 
-                customerStatus = "🚚 Out for Delivery";
+                customerStatus =
+                    "🟢 Ready for Collection";
 
-            } else if (data.status === "Delivered") {
+            }
 
-                customerStatus = "✅ Delivered";
+            else if (data.status === "Out for Delivery") {
+
+                customerStatus =
+                    "🚚 Out for Delivery";
+
+            }
+
+            else if (data.status === "Delivered") {
+
+                customerStatus =
+                    "✅ Delivered";
 
             }
 
@@ -130,7 +143,8 @@
                 " ft</p>" +
 
                 "<p><strong>Cleaning Price:</strong> KSh " +
-                Number(data.price).toLocaleString("en-KE") +
+                Number(data.price)
+                    .toLocaleString("en-KE") +
                 "</p>" +
 
                 "<h3>Order Status</h3>" +
@@ -142,7 +156,12 @@
         }
 
 
-        // Automatically track carpet when an ID is in the URL
+        /*
+         * Automatically read Carpet ID from the URL
+         *
+         * Example:
+         * track.html?id=CC-002
+         */
 
         const urlParams =
             new URLSearchParams(window.location.search);
