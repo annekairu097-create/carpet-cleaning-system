@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carpet Tracking System</title>
+</head>
+
+<body>
+
+    <h1>🧼 Carpet Care</h1>
+    <h2>Carpet Tracking System</h2>
+
+    <p><strong>Carpet ID:</strong> CC-0001</p>
+    <p><strong>Size:</strong> 5 × 7 ft</p>
+    <p><strong>Price:</strong> KSh 1,050</p>
+
+    <h3>Order Status</h3>
+    <p>🟡 Your carpet has been received and is being processed.</p>
+
+    <h3>Estimated Ready Date</h3>
+    <p>22 October 2026</p>
+
+
+    <hr>
+
+    <h2>💰 Carpet Price Calculator</h2>
+
+    <p>Our cleaning price is <strong>KSh 30 per square foot.</strong></p>
+
+    <label for="length">Carpet Length (ft):</label>
+    <input type="number" id="length" placeholder="e.g. 5">
+
+    <br><br>
+
+    <label for="width">Carpet Width (ft):</label>
+    <input type="number" id="width" placeholder="e.g. 7">
+
+    <br><br>
+
+    <button onclick="calculatePrice()">Calculate Price</button>
+
+    <h3>Result</h3>
+
+    <p id="result"></p>
+
+
+    <script>
+
+        function calculatePrice() {
+
+            let length = parseFloat(document.getElementById("length").value);
+            let width = parseFloat(document.getElementById("width").value);
+
+            if (length <= 0 || width <= 0 || isNaN(length) || isNaN(width)) {
+
+                document.getElementById("result").innerHTML =
+                    "Please enter a valid length and width.";
+
+                return;
+            }
+
+            let area = length * width;
+            let price = area * 30;
+
+            document.getElementById("result").innerHTML =
+                "Carpet Area: " + area.toFixed(2) + " sq ft" +
+                "<br>Cleaning Price: KSh " + price.toLocaleString("en-KE");
+
+        }
+
+    </script>
+
+</body>
+</html>
