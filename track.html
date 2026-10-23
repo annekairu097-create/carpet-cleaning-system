@@ -2,43 +2,367 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carpet Care - Track Carpet</title>
+
+    <title>Cleanova Cleaning Solutions - Track Your Carpet</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f3fc;
+            color: #222;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+
+        .logo-icon {
+            font-size: 42px;
+            margin-bottom: 5px;
+        }
+
+
+        .header h1 {
+            margin: 0;
+            font-size: 38px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+
+        .tagline {
+            margin-top: 12px;
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0.95;
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .container {
+            max-width: 650px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+
+        /* CARD */
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(75, 22, 140, 0.12);
+        }
+
+
+        .card h2 {
+            margin-top: 0;
+            color: #4b168c;
+            text-align: center;
+            font-size: 26px;
+        }
+
+
+        .intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+
+        .search-box input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #d4c5e8;
+            border-radius: 9px;
+            font-size: 16px;
+            outline: none;
+        }
+
+
+        .search-box input:focus {
+            border-color: #7b2cbf;
+        }
+
+
+        .search-box button {
+            padding: 14px 22px;
+            border: none;
+            border-radius: 9px;
+            background: #7b2cbf;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .search-box button:hover {
+            background: #5a189a;
+        }
+
+
+        /* DETAILS */
+
+        .details {
+            margin-top: 25px;
+        }
+
+
+        .details h3 {
+            color: #4b168c;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+        }
+
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #f0edf5;
+        }
+
+
+        .label {
+            color: #666;
+        }
+
+
+        .value {
+            font-weight: bold;
+            color: #333;
+        }
+
+
+        /* STATUS */
+
+        .status-box {
+            margin-top: 28px;
+            padding: 22px;
+            border-radius: 14px;
+            background: #f4edff;
+            border: 1px solid #e2d2f7;
+            text-align: center;
+        }
+
+
+        .status-title {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+
+        .status {
+            font-size: 21px;
+            font-weight: bold;
+            color: #5a189a;
+        }
+
+
+        /* LOADING */
+
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+
+
+        /* ERROR */
+
+        .error {
+            background: #fff1f3;
+            color: #b00020;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin: 30px 0;
+        }
+
+
+        .footer strong {
+            color: #5a189a;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .search-box {
+                flex-direction: column;
+            }
+
+
+            .search-box button {
+                width: 100%;
+            }
+
+
+            .card {
+                padding: 22px;
+            }
+
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+
+            .info-row {
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <h1>🧼 Carpet Care</h1>
 
-    <h2>Track Your Carpet</h2>
+    <!-- HEADER -->
 
-    <p>Enter your Carpet ID below:</p>
+    <div class="header">
 
-    <input
-        type="text"
-        id="carpetId"
-        placeholder="e.g. CC-002"
-    >
+        <div class="logo-icon">
+            ✨
+        </div>
 
-    <button onclick="trackCarpet()">
-        Track Carpet
-    </button>
+        <h1>Cleanova</h1>
 
-    <hr>
+        <p>Cleaning Solutions</p>
 
-    <div id="carpetDetails"></div>
+        <div class="tagline">
+            Cleaner Spaces • Healthier Living
+        </div>
 
+    </div>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Track Your Carpet</h2>
+
+            <p class="intro">
+                Enter your Carpet ID below to view your carpet information.
+            </p>
+
+
+            <!-- SEARCH BOX -->
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="carpetId"
+                    placeholder="e.g. CC-002"
+                >
+
+                <button onclick="trackCarpet()">
+                    Track
+                </button>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div id="carpetDetails"></div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+
+            <strong>Cleanova Cleaning Solutions</strong>
+
+            <br>
+
+            Professional • Reliable • Trusted
+
+            <br><br>
+
+            © 2026 Cleanova Cleaning Solutions
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SUPABASE -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
     <script>
+
 
         const SUPABASE_URL =
             "https://zrqbawumswnoxfovsyoe.supabase.co";
 
+
         const SUPABASE_KEY =
             "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
+
 
         const supabaseClient =
             supabase.createClient(
@@ -47,7 +371,9 @@
             );
 
 
+
         async function trackCarpet() {
+
 
             const carpetId =
                 document.getElementById("carpetId")
@@ -59,27 +385,45 @@
             if (carpetId === "") {
 
                 document.getElementById("carpetDetails").innerHTML =
-                    "<p>⚠️ Please enter your Carpet ID.</p>";
+
+                    '<div class="error">' +
+
+                    '⚠️ Please enter your Carpet ID.' +
+
+                    '</div>';
 
                 return;
+
             }
 
 
             document.getElementById("carpetDetails").innerHTML =
-                "<p>🔍 Searching for your carpet...</p>";
+
+                '<div class="loading">' +
+
+                '🔍 Searching for your carpet...' +
+
+                '</div>';
 
 
-            /*
-             * Search Supabase for the Carpet ID.
-             * ilike makes the search case-insensitive.
-             */
 
             const { data, error } =
+
                 await supabaseClient
+
                     .from("carpet_orders")
-                    .select("carpet_id, length, width, price, status")
-                    .ilike("carpet_id", carpetId)
+
+                    .select(
+                        "carpet_id, length, width, price, status"
+                    )
+
+                    .ilike(
+                        "carpet_id",
+                        carpetId
+                    )
+
                     .limit(1);
+
 
 
             if (error) {
@@ -87,36 +431,57 @@
                 console.error(error);
 
                 document.getElementById("carpetDetails").innerHTML =
-                    "<p>❌ There was a problem connecting to the tracking system.</p>" +
-                    "<p>" + error.message + "</p>";
+
+                    '<div class="error">' +
+
+                    '❌ There was a problem connecting to the tracking system.' +
+
+                    '</div>';
 
                 return;
+
             }
 
 
+
             const carpet =
+
                 data && data.length > 0
+
                     ? data[0]
+
                     : null;
+
 
 
             if (!carpet) {
 
                 document.getElementById("carpetDetails").innerHTML =
-                    "<p>❌ We could not find that Carpet ID.</p>" +
-                    "<p>Please check the ID and try again.</p>";
+
+                    '<div class="error">' +
+
+                    '❌ We could not find that Carpet ID.' +
+
+                    '<br><br>' +
+
+                    'Please check the ID and try again.' +
+
+                    '</div>';
 
                 return;
+
             }
 
 
+
             /*
-             * Convert the internal status into
-             * customer-friendly wording.
+             * Customer-friendly status
              */
 
             let customerStatus =
+
                 carpet.status;
+
 
 
             if (carpet.status === "Received") {
@@ -155,67 +520,132 @@
             }
 
 
+
             /*
-             * Display the carpet information.
+             * Display carpet information
              */
 
             document.getElementById("carpetDetails").innerHTML =
 
-                "<h3>Carpet Information</h3>" +
+                '<div class="details">' +
 
-                "<p><strong>Carpet ID:</strong> " +
+                '<h3>Carpet Information</h3>' +
+
+
+                '<div class="info-row">' +
+
+                '<span class="label">' +
+                'Carpet ID' +
+                '</span>' +
+
+                '<span class="value">' +
                 carpet.carpet_id +
-                "</p>" +
+                '</span>' +
 
-                "<p><strong>Size:</strong> " +
+                '</div>' +
+
+
+                '<div class="info-row">' +
+
+                '<span class="label">' +
+                'Size' +
+                '</span>' +
+
+                '<span class="value">' +
+
                 carpet.length +
-                " × " +
-                carpet.width +
-                " ft</p>" +
 
-                "<p><strong>Cleaning Price:</strong> KSh " +
+                ' × ' +
+
+                carpet.width +
+
+                ' ft' +
+
+                '</span>' +
+
+                '</div>' +
+
+
+                '<div class="info-row">' +
+
+                '<span class="label">' +
+                'Cleaning Price' +
+                '</span>' +
+
+                '<span class="value">' +
+
+                'KSh ' +
+
                 Number(carpet.price)
                     .toLocaleString("en-KE") +
-                "</p>" +
 
-                "<h3>Order Status</h3>" +
+                '</span>' +
 
-                "<p>" +
+                '</div>' +
+
+
+                '<div class="status-box">' +
+
+                '<div class="status-title">' +
+
+                'Current Status' +
+
+                '</div>' +
+
+
+                '<div class="status">' +
+
                 customerStatus +
-                "</p>";
+
+                '</div>' +
+
+                '</div>' +
+
+
+                '</div>';
 
         }
 
 
+
         /*
-         * Automatically track a carpet when
-         * the Carpet ID is included in the URL.
+         * AUTOMATIC QR TRACKING
          *
          * Example:
          *
          * track.html?id=CC-002
          */
 
+
         const urlParams =
+
             new URLSearchParams(
+
                 window.location.search
+
             );
 
 
         const carpetIdFromURL =
+
             urlParams.get("id");
 
 
         if (carpetIdFromURL) {
 
+
             document.getElementById("carpetId").value =
+
                 carpetIdFromURL.toUpperCase();
+
 
             trackCarpet();
 
         }
 
+
     </script>
+
 
 </body>
 
