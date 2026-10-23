@@ -69,17 +69,38 @@
                 "<p>🔍 Searching for your carpet...</p>";
 
 
+            /*
+             * Search Supabase for the Carpet ID.
+             * ilike makes the search case-insensitive.
+             */
+
             const { data, error } =
                 await supabaseClient
                     .from("carpet_orders")
-                    .select("*")
-                    .eq("carpet_id", carpetId)
-                    .single();
+                    .select("carpet_id, length, width, price, status")
+                    .ilike("carpet_id", carpetId)
+                    .limit(1);
 
 
-            if (error || !data) {
+            if (error) {
 
                 console.error(error);
+
+                document.getElementById("carpetDetails").innerHTML =
+                    "<p>❌ There was a problem connecting to the tracking system.</p>" +
+                    "<p>" + error.message + "</p>";
+
+                return;
+            }
+
+
+            const carpet =
+                data && data.length > 0
+                    ? data[0]
+                    : null;
+
+
+            if (!carpet) {
 
                 document.getElementById("carpetDetails").innerHTML =
                     "<p>❌ We could not find that Carpet ID.</p>" +
@@ -89,38 +110,44 @@
             }
 
 
-            let customerStatus = data.status;
+            /*
+             * Convert the internal status into
+             * customer-friendly wording.
+             */
+
+            let customerStatus =
+                carpet.status;
 
 
-            if (data.status === "Received") {
+            if (carpet.status === "Received") {
 
                 customerStatus =
                     "🟡 Carpet Received";
 
             }
 
-            else if (data.status === "Processing") {
+            else if (carpet.status === "Processing") {
 
                 customerStatus =
                     "🔵 Carpet Being Processed";
 
             }
 
-            else if (data.status === "Ready") {
+            else if (carpet.status === "Ready") {
 
                 customerStatus =
                     "🟢 Ready for Collection";
 
             }
 
-            else if (data.status === "Out for Delivery") {
+            else if (carpet.status === "Out for Delivery") {
 
                 customerStatus =
                     "🚚 Out for Delivery";
 
             }
 
-            else if (data.status === "Delivered") {
+            else if (carpet.status === "Delivered") {
 
                 customerStatus =
                     "✅ Delivered";
@@ -128,22 +155,26 @@
             }
 
 
+            /*
+             * Display the carpet information.
+             */
+
             document.getElementById("carpetDetails").innerHTML =
 
                 "<h3>Carpet Information</h3>" +
 
                 "<p><strong>Carpet ID:</strong> " +
-                data.carpet_id +
+                carpet.carpet_id +
                 "</p>" +
 
                 "<p><strong>Size:</strong> " +
-                data.length +
+                carpet.length +
                 " × " +
-                data.width +
+                carpet.width +
                 " ft</p>" +
 
                 "<p><strong>Cleaning Price:</strong> KSh " +
-                Number(data.price)
+                Number(carpet.price)
                     .toLocaleString("en-KE") +
                 "</p>" +
 
@@ -157,14 +188,19 @@
 
 
         /*
-         * Automatically read Carpet ID from the URL
+         * Automatically track a carpet when
+         * the Carpet ID is included in the URL.
          *
          * Example:
+         *
          * track.html?id=CC-002
          */
 
         const urlParams =
-            new URLSearchParams(window.location.search);
+            new URLSearchParams(
+                window.location.search
+            );
+
 
         const carpetIdFromURL =
             urlParams.get("id");
