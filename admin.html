@@ -25,8 +25,6 @@
         }
 
 
-        /* HEADER */
-
         .header {
             background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
             color: white;
@@ -47,16 +45,12 @@
         }
 
 
-        /* CONTAINER */
-
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 0 20px;
         }
 
-
-        /* CARD */
 
         .card {
             background: white;
@@ -72,8 +66,6 @@
             color: #4b168c;
         }
 
-
-        /* FORM */
 
         label {
             display: block;
@@ -109,8 +101,6 @@
         }
 
 
-        /* PRICE */
-
         .price-box {
             margin-top: 20px;
             padding: 18px;
@@ -121,8 +111,6 @@
             font-weight: bold;
         }
 
-
-        /* BUTTON */
 
         button {
             margin-top: 20px;
@@ -143,16 +131,12 @@
         }
 
 
-        /* MESSAGE */
-
         .message {
             margin-top: 15px;
             text-align: center;
             font-weight: bold;
         }
 
-
-        /* TABLE */
 
         .table-container {
             overflow-x: auto;
@@ -178,6 +162,7 @@
         td {
             padding: 12px;
             border-bottom: 1px solid #eee;
+            vertical-align: middle;
         }
 
 
@@ -202,7 +187,37 @@
         }
 
 
-        /* FOOTER */
+        .qr-container {
+            text-align: center;
+            min-width: 170px;
+        }
+
+
+        .qr-image {
+            width: 140px;
+            height: 140px;
+            display: block;
+            margin: 0 auto;
+            border: 5px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        }
+
+
+        .qr-id {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #5a189a;
+        }
+
+
+        .qr-button {
+            width: auto;
+            margin-top: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+
 
         .footer {
             text-align: center;
@@ -211,8 +226,6 @@
             margin: 30px 0;
         }
 
-
-        /* MOBILE */
 
         @media (max-width: 600px) {
 
@@ -241,8 +254,6 @@
 
 <body>
 
-
-    <!-- HEADER -->
 
     <div class="header">
 
@@ -364,34 +375,24 @@
 
                         <tr>
 
-                            <th>
-                                Carpet ID
-                            </th>
+                            <th>Carpet ID</th>
 
-                            <th>
-                                Size
-                            </th>
+                            <th>Size</th>
 
-                            <th>
-                                Price
-                            </th>
+                            <th>Price</th>
 
-                            <th>
-                                Status
-                            </th>
+                            <th>Status</th>
 
-                            <th>
-                                Update Status
-                            </th>
+                            <th>Update Status</th>
+
+                            <th>QR Code</th>
 
                         </tr>
 
                     </thead>
 
 
-                    <tbody
-                        id="carpetList"
-                    ></tbody>
+                    <tbody id="carpetList"></tbody>
 
                 </table>
 
@@ -420,6 +421,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
+    <!-- QR CODE LIBRARY -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+
     <script>
 
 
@@ -440,20 +447,15 @@
 
 
         /*
-         * CALCULATE PRICE
-         *
-         * Cleanova price:
-         * KSh 30 per square foot
+         * PRICE CALCULATION
          */
 
         function calculatePrice() {
-
 
             const length =
                 parseFloat(
                     document.getElementById("length").value
                 );
-
 
             const width =
                 parseFloat(
@@ -468,7 +470,9 @@
                 width <= 0
             ) {
 
-                document.getElementById("priceResult").innerHTML =
+                document.getElementById(
+                    "priceResult"
+                ).innerHTML =
                     "Enter the carpet length and width.";
 
                 return;
@@ -484,7 +488,9 @@
                 area * 30;
 
 
-            document.getElementById("priceResult").innerHTML =
+            document.getElementById(
+                "priceResult"
+            ).innerHTML =
 
                 "Area: " +
                 area.toFixed(2) +
@@ -505,7 +511,6 @@
          */
 
         async function getNextCarpetId() {
-
 
             const { data, error } =
 
@@ -532,7 +537,6 @@
 
                 data.forEach(function(carpet) {
 
-
                     const id =
                         carpet.carpet_id;
 
@@ -547,7 +551,6 @@
 
 
                     if (match) {
-
 
                         const number =
                             parseInt(
@@ -573,14 +576,11 @@
             }
 
 
-            const nextNumber =
-                highestNumber + 1;
-
-
             return (
                 "CC-" +
-                String(nextNumber)
-                    .padStart(3, "0")
+                String(
+                    highestNumber + 1
+                ).padStart(3, "0")
             );
 
         }
@@ -588,11 +588,10 @@
 
 
         /*
-         * SHOW NEXT CARPET ID
+         * SHOW NEXT ID
          */
 
         async function showNextCarpetId() {
-
 
             const nextId =
                 await getNextCarpetId();
@@ -615,7 +614,6 @@
          */
 
         async function saveCarpet() {
-
 
             const carpetId =
                 document.getElementById(
@@ -659,7 +657,6 @@
 
             ) {
 
-
                 document.getElementById(
                     "savedMessage"
                 ).innerHTML =
@@ -671,14 +668,12 @@
             }
 
 
-
             const area =
                 length * width;
 
 
             const price =
                 area * 30;
-
 
 
             const { error } =
@@ -711,11 +706,9 @@
                     ]);
 
 
-
             if (error) {
 
                 console.error(error);
-
 
                 document.getElementById(
                     "savedMessage"
@@ -729,7 +722,6 @@
             }
 
 
-
             document.getElementById(
                 "savedMessage"
             ).innerHTML =
@@ -738,11 +730,6 @@
                 carpetId +
                 " has been saved successfully!";
 
-
-
-            /*
-             * Clear form
-             */
 
             document.getElementById(
                 "length"
@@ -761,17 +748,8 @@
                 "Enter the carpet length and width.";
 
 
-
-            /*
-             * Generate next ID
-             */
-
             await showNextCarpetId();
 
-
-            /*
-             * Refresh carpet list
-             */
 
             loadCarpets();
 
@@ -787,7 +765,6 @@
             carpetId,
             newStatus
         ) {
-
 
             const { error } =
 
@@ -806,7 +783,6 @@
                         "carpet_id",
                         carpetId
                     );
-
 
 
             if (error) {
@@ -831,11 +807,160 @@
             );
 
 
-            /*
-             * Refresh the table
-             */
-
             loadCarpets();
+
+        }
+
+
+
+        /*
+         * CREATE TRACKING URL
+         */
+
+        function getTrackingURL(carpetId) {
+
+            return (
+                "https://annekairu097-create.github.io/" +
+                "carpet-cleaning-system/track.html?id=" +
+                encodeURIComponent(carpetId)
+            );
+
+        }
+
+
+
+        /*
+         * CREATE QR CODE
+         */
+
+        function createQRCode(
+            container,
+            carpetId
+        ) {
+
+            container.innerHTML = "";
+
+
+            new QRCode(
+
+                container,
+
+                {
+
+                    text:
+                        getTrackingURL(carpetId),
+
+                    width:
+                        140,
+
+                    height:
+                        140,
+
+                    colorDark:
+                        "#000000",
+
+                    colorLight:
+                        "#ffffff",
+
+                    correctLevel:
+                        QRCode.CorrectLevel.H
+
+                }
+
+            );
+
+        }
+
+
+
+        /*
+         * DOWNLOAD QR CODE
+         */
+
+        function downloadQR(carpetId) {
+
+            const container =
+                document.getElementById(
+                    "qr-" + carpetId
+                );
+
+
+            if (!container) {
+
+                alert(
+                    "❌ QR code could not be found."
+                );
+
+                return;
+
+            }
+
+
+            const canvas =
+                container.querySelector(
+                    "canvas"
+                );
+
+
+            if (!canvas) {
+
+                alert(
+                    "❌ QR code is not ready yet."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                const image =
+                    canvas.toDataURL(
+                        "image/png"
+                    );
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href =
+                    image;
+
+
+                link.download =
+                    "Cleanova-" +
+                    carpetId +
+                    "-QR.png";
+
+
+                document.body.appendChild(
+                    link
+                );
+
+
+                link.click();
+
+
+                document.body.removeChild(
+                    link
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+
+                alert(
+                    "❌ Could not download QR code."
+                );
+
+            }
 
         }
 
@@ -846,7 +971,6 @@
          */
 
         async function loadCarpets() {
-
 
             const { data, error } =
 
@@ -862,7 +986,6 @@
                             ascending: true
                         }
                     );
-
 
 
             if (error) {
@@ -882,7 +1005,6 @@
             }
 
 
-
             const table =
                 document.getElementById(
                     "carpetList"
@@ -890,7 +1012,6 @@
 
 
             table.innerHTML = "";
-
 
 
             data.forEach(
@@ -901,9 +1022,18 @@
                         table.insertRow();
 
 
+                    /*
+                     * CARPET ID
+                     */
+
                     row.insertCell(0).innerHTML =
                         carpet.carpet_id;
 
+
+
+                    /*
+                     * SIZE
+                     */
 
                     row.insertCell(1).innerHTML =
 
@@ -913,17 +1043,26 @@
                         " ft";
 
 
+
+                    /*
+                     * PRICE
+                     */
+
                     row.insertCell(2).innerHTML =
 
                         "KSh " +
 
                         Number(
                             carpet.price
-                        )
-                        .toLocaleString(
+                        ).toLocaleString(
                             "en-KE"
                         );
 
+
+
+                    /*
+                     * STATUS
+                     */
 
                     row.insertCell(3).innerHTML =
                         carpet.status;
@@ -931,7 +1070,7 @@
 
 
                     /*
-                     * STATUS UPDATE CELL
+                     * STATUS UPDATE
                      */
 
                     const statusCell =
@@ -961,7 +1100,6 @@
 
                     statuses.forEach(
                         function(status) {
-
 
                             const option =
                                 document.createElement(
@@ -1001,11 +1139,6 @@
                     );
 
 
-
-                    /*
-                     * UPDATE BUTTON
-                     */
-
                     const updateButton =
                         document.createElement(
                             "button"
@@ -1023,7 +1156,6 @@
                     updateButton.onclick =
                         function() {
 
-
                             updateStatus(
 
                                 carpet.carpet_id,
@@ -1039,6 +1171,96 @@
                         updateButton
                     );
 
+
+
+                    /*
+                     * QR CODE
+                     */
+
+                    const qrCell =
+                        row.insertCell(5);
+
+
+                    qrCell.className =
+                        "qr-container";
+
+
+                    const qrBox =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    qrBox.id =
+                        "qr-" +
+                        carpet.carpet_id;
+
+
+                    qrCell.appendChild(
+                        qrBox
+                    );
+
+
+                    const qrId =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    qrId.className =
+                        "qr-id";
+
+
+                    qrId.textContent =
+                        carpet.carpet_id;
+
+
+                    qrCell.appendChild(
+                        qrId
+                    );
+
+
+                    const qrButton =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    qrButton.className =
+                        "qr-button";
+
+
+                    qrButton.textContent =
+                        "Download QR";
+
+
+                    qrButton.onclick =
+                        function() {
+
+                            downloadQR(
+                                carpet.carpet_id
+                            );
+
+                        };
+
+
+                    qrCell.appendChild(
+                        qrButton
+                    );
+
+
+                    /*
+                     * GENERATE QR
+                     */
+
+                    createQRCode(
+
+                        qrBox,
+
+                        carpet.carpet_id
+
+                    );
+
                 }
             );
 
@@ -1047,7 +1269,7 @@
 
 
         /*
-         * START ADMIN DASHBOARD
+         * START DASHBOARD
          */
 
         showNextCarpetId();
