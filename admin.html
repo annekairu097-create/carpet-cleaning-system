@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Cleanova Cleaning Solutions - Admin</title>
+    <title>Cleanova Cleaning Solutions - Admin Dashboard</title>
 
 
     <style>
@@ -25,224 +25,477 @@
         }
 
 
-        .header {
-            background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
-            color: white;
-            padding: 30px 20px;
+        /* =========================
+           LOGIN PAGE
+        ========================= */
+
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4b168c,
+                    #7b2cbf,
+                    #9d4edd
+                );
+        }
+
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+
+            background: white;
+
+            padding: 40px 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.2);
+
             text-align: center;
+        }
+
+
+        .login-logo {
+            font-size: 45px;
+            margin-bottom: 5px;
+        }
+
+
+        .login-card h1 {
+            margin: 0;
+
+            color: #4b168c;
+
+            font-size: 32px;
+        }
+
+
+        .login-card p {
+            color: #777;
+
+            margin-bottom: 30px;
+        }
+
+
+        .login-card input {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #d4c5e8;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+
+        .login-card input:focus {
+            border-color: #7b2cbf;
+        }
+
+
+        .login-card button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #7b2cbf;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .login-card button:hover {
+            background: #5a189a;
+        }
+
+
+        #loginMessage {
+            margin-top: 15px;
+
+            color: #b00020;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           ADMIN DASHBOARD
+        ========================= */
+
+        #adminPage {
+            display: none;
+        }
+
+
+        .header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #4b168c,
+                    #7b2cbf,
+                    #9d4edd
+                );
+
+            color: white;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            position: relative;
         }
 
 
         .header h1 {
             margin: 0;
-            font-size: 34px;
+
+            font-size: 36px;
         }
 
 
         .header p {
             margin: 7px 0 0;
+
             font-size: 15px;
         }
 
 
+        .logout-button {
+            position: absolute;
+
+            right: 20px;
+
+            top: 25px;
+
+            padding: 10px 16px;
+
+            border: 1px solid rgba(255,255,255,0.7);
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .logout-button:hover {
+            background: white;
+
+            color: #5a189a;
+        }
+
+
         .container {
-            max-width: 1100px;
-            margin: 30px auto;
+            max-width: 1200px;
+
+            margin: 35px auto;
+
             padding: 0 20px;
         }
 
 
         .card {
             background: white;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(75, 22, 140, 0.10);
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 5px 25px rgba(75, 22, 140, 0.12);
         }
 
 
         .card h2 {
             margin-top: 0;
+
             color: #4b168c;
         }
 
 
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 6px;
-            font-weight: bold;
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
         }
 
 
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .form-group label {
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #555;
+        }
+
+
+        .form-group input,
+        .form-group select {
+            padding: 13px;
+
             border: 1px solid #d4c5e8;
+
             border-radius: 8px;
-            font-size: 16px;
+
+            font-size: 15px;
         }
 
 
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #7b2cbf;
-        }
-
-
-        .carpet-id {
+        .price-display {
             background: #f4edff;
-            color: #5a189a;
+
+            border: 1px solid #e2d2f7;
+
+            padding: 15px;
+
+            border-radius: 9px;
+
             font-size: 20px;
+
             font-weight: bold;
+
+            color: #5a189a;
+
+            margin-top: 20px;
+
             text-align: center;
         }
 
 
-        .price-box {
+        .save-button {
             margin-top: 20px;
-            padding: 18px;
-            background: #f4edff;
-            border-radius: 10px;
-            color: #5a189a;
-            font-size: 18px;
-            font-weight: bold;
-        }
 
+            padding: 14px 25px;
 
-        button {
-            margin-top: 20px;
-            width: 100%;
-            padding: 14px;
             border: none;
+
             border-radius: 9px;
+
             background: #7b2cbf;
+
             color: white;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
         }
 
 
-        button:hover {
+        .save-button:hover {
             background: #5a189a;
         }
 
 
-        .message {
+        #saveMessage {
             margin-top: 15px;
-            text-align: center;
+
             font-weight: bold;
         }
 
 
-        .table-container {
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-wrapper {
             overflow-x: auto;
         }
 
 
         table {
             width: 100%;
+
             border-collapse: collapse;
-            margin-top: 15px;
+
+            min-width: 900px;
         }
 
 
         th {
-            background: #7b2cbf;
-            color: white;
-            padding: 12px;
+            background: #f4edff;
+
+            color: #4b168c;
+
+            padding: 14px;
+
             text-align: left;
-            white-space: nowrap;
+
+            border-bottom: 2px solid #e2d2f7;
         }
 
 
         td {
-            padding: 12px;
+            padding: 14px;
+
             border-bottom: 1px solid #eee;
+
             vertical-align: middle;
         }
 
 
-        tr:hover {
-            background: #faf7ff;
-        }
-
-
         .status-select {
-            width: auto;
-            min-width: 180px;
             padding: 8px;
-            font-size: 14px;
+
+            border-radius: 7px;
+
+            border: 1px solid #d4c5e8;
         }
 
 
         .update-button {
-            width: auto;
-            margin-top: 8px;
-            padding: 8px 14px;
-            font-size: 13px;
+            padding: 8px 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #7b2cbf;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: bold;
         }
 
+
+        .update-button:hover {
+            background: #5a189a;
+        }
+
+
+        /* =========================
+           QR CODE
+        ========================= */
 
         .qr-container {
             text-align: center;
-            min-width: 170px;
         }
 
 
-        .qr-image {
-            width: 140px;
-            height: 140px;
+        .qr-container canvas {
             display: block;
-            margin: 0 auto;
-            border: 5px solid white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+
+            margin: 0 auto 8px;
         }
 
 
-        .qr-id {
-            margin-top: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #5a189a;
-        }
+        .download-qr {
+            padding: 7px 10px;
 
+            border: none;
 
-        .qr-button {
-            width: auto;
-            margin-top: 8px;
-            padding: 8px 12px;
+            border-radius: 7px;
+
+            background: #5a189a;
+
+            color: white;
+
+            cursor: pointer;
+
             font-size: 12px;
+
+            font-weight: bold;
         }
 
+
+        .download-qr:hover {
+            background: #4b168c;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
 
         .footer {
             text-align: center;
+
             color: #777;
+
             font-size: 13px;
+
             margin: 30px 0;
         }
 
 
-        @media (max-width: 600px) {
+        .footer strong {
+            color: #5a189a;
+        }
 
-            .container {
-                padding: 0 12px;
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
             }
 
-            .card {
-                padding: 20px;
-            }
 
             .header h1 {
-                font-size: 28px;
+                font-size: 29px;
             }
 
-            .status-select {
-                min-width: 150px;
+
+            .logout-button {
+                position: static;
+
+                margin-top: 15px;
+            }
+
+
+            .card {
+                padding: 22px;
             }
 
         }
@@ -255,160 +508,45 @@
 <body>
 
 
-    <div class="header">
+    <!-- ==================================================
+         LOGIN PAGE
+    ================================================== -->
 
-        <h1>Cleanova</h1>
+    <div id="loginPage">
 
-        <p>Cleaning Solutions — Admin Dashboard</p>
+        <div class="login-card">
 
-    </div>
-
-
-
-    <div class="container">
-
-
-        <!-- ADD CARPET -->
-
-        <div class="card">
-
-            <h2>➕ Add New Carpet</h2>
-
-
-            <label>Carpet ID</label>
-
-            <input
-                type="text"
-                id="carpetId"
-                class="carpet-id"
-                readonly
-            >
-
-
-            <label>Length (ft)</label>
-
-            <input
-                type="number"
-                id="length"
-                placeholder="e.g. 5"
-                min="0"
-                step="0.01"
-                oninput="calculatePrice()"
-            >
-
-
-            <label>Width (ft)</label>
-
-            <input
-                type="number"
-                id="width"
-                placeholder="e.g. 7"
-                min="0"
-                step="0.01"
-                oninput="calculatePrice()"
-            >
-
-
-            <div
-                id="priceResult"
-                class="price-box"
-            >
-                Enter the carpet length and width.
+            <div class="login-logo">
+                ✨
             </div>
 
+            <h1>Cleanova</h1>
 
-            <label>Order Status</label>
-
-            <select id="status">
-
-                <option value="Received">
-                    🟡 Received
-                </option>
-
-                <option value="Processing">
-                    🔵 Being Processed
-                </option>
-
-                <option value="Ready">
-                    🟢 Ready for Collection
-                </option>
-
-                <option value="Out for Delivery">
-                    🚚 Out for Delivery
-                </option>
-
-                <option value="Delivered">
-                    ✅ Delivered
-                </option>
-
-            </select>
+            <p>
+                Admin Dashboard
+            </p>
 
 
-            <button onclick="saveCarpet()">
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Admin Email"
+            >
 
-                💾 Save Carpet
 
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
+
+
+            <button onclick="login()">
+                Login
             </button>
 
 
-            <div
-                id="savedMessage"
-                class="message"
-            ></div>
-
-        </div>
-
-
-
-        <!-- CARPET LIST -->
-
-        <div class="card">
-
-            <h2>📋 Carpet List</h2>
-
-
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Carpet ID</th>
-
-                            <th>Size</th>
-
-                            <th>Price</th>
-
-                            <th>Status</th>
-
-                            <th>Update Status</th>
-
-                            <th>QR Code</th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="carpetList"></tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="footer">
-
-            <strong>Cleanova Cleaning Solutions</strong>
-
-            <br>
-
-            Professional • Reliable • Trusted
+            <div id="loginMessage"></div>
 
         </div>
 
@@ -416,12 +554,274 @@
 
 
 
-    <!-- SUPABASE -->
+    <!-- ==================================================
+         ADMIN PAGE
+    ================================================== -->
+
+    <div id="adminPage">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>
+                Cleanova Admin Dashboard
+            </h1>
+
+            <p>
+                Carpet Cleaning Management System
+            </p>
+
+
+            <button
+                class="logout-button"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+
+        <div class="container">
+
+
+            <!-- ==================================================
+                 ADD CARPET
+            ================================================== -->
+
+            <div class="card">
+
+                <h2>
+                    Add New Carpet
+                </h2>
+
+
+                <div class="form-grid">
+
+
+                    <!-- CARPET ID -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Carpet ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="carpetId"
+                            readonly
+                        >
+
+                    </div>
+
+
+
+                    <!-- LENGTH -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Length (ft)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="length"
+                            placeholder="e.g. 5"
+                            min="0"
+                            step="0.01"
+                            oninput="calculatePrice()"
+                        >
+
+                    </div>
+
+
+
+                    <!-- WIDTH -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Width (ft)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="width"
+                            placeholder="e.g. 7"
+                            min="0"
+                            step="0.01"
+                            oninput="calculatePrice()"
+                        >
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Status
+                        </label>
+
+                        <select id="status">
+
+                            <option value="Received">
+                                Received
+                            </option>
+
+                            <option value="Processing">
+                                Processing
+                            </option>
+
+                            <option value="Ready">
+                                Ready
+                            </option>
+
+                            <option value="Out for Delivery">
+                                Out for Delivery
+                            </option>
+
+                            <option value="Delivered">
+                                Delivered
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PRICE -->
+
+                <div class="price-display">
+
+                    Price:
+                    <span id="price">
+                        KSh 0
+                    </span>
+
+                </div>
+
+
+
+                <button
+                    class="save-button"
+                    onclick="saveCarpet()"
+                >
+                    Save Carpet
+                </button>
+
+
+                <div id="saveMessage"></div>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 CARPET LIST
+            ================================================== -->
+
+            <div class="card">
+
+                <h2>
+                    Carpet Orders
+                </h2>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    QR Code
+                                </th>
+
+                                <th>
+                                    Carpet ID
+                                </th>
+
+                                <th>
+                                    Size
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Current Status
+                                </th>
+
+                                <th>
+                                    Update Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="carpetTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="footer">
+
+                <strong>
+                    Cleanova Cleaning Solutions
+                </strong>
+
+                <br>
+
+                Professional • Reliable • Trusted
+
+                <br><br>
+
+                © 2026 Cleanova Cleaning Solutions
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         SUPABASE
+    ================================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-    <!-- QR CODE LIBRARY -->
+    <!-- ==================================================
+         QR CODE LIBRARY
+    ================================================== -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -429,6 +829,10 @@
 
     <script>
 
+
+        /* ==================================================
+           SUPABASE CONNECTION
+        ================================================== */
 
         const SUPABASE_URL =
             "https://zrqbawumswnoxfovsyoe.supabase.co";
@@ -446,74 +850,192 @@
 
 
 
-        /*
-         * PRICE CALCULATION
-         */
+        /* ==================================================
+           GITHUB TRACKING URL
+        ================================================== */
 
-        function calculatePrice() {
+        const TRACKING_URL =
+            "https://annekairu097-create.github.io/carpet-cleaning-system/track.html?id=";
 
-            const length =
-                parseFloat(
-                    document.getElementById("length").value
+
+
+        /* ==================================================
+           LOGIN
+        ================================================== */
+
+        async function login() {
+
+
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
+
+
+            const message =
+                document.getElementById(
+                    "loginMessage"
                 );
 
-            const width =
-                parseFloat(
-                    document.getElementById("width").value
-                );
+
+            message.textContent = "";
+
 
 
             if (
-                isNaN(length) ||
-                isNaN(width) ||
-                length <= 0 ||
-                width <= 0
+                email === "" ||
+                password === ""
             ) {
 
-                document.getElementById(
-                    "priceResult"
-                ).innerHTML =
-                    "Enter the carpet length and width.";
+                message.textContent =
+                    "Please enter your email and password.";
 
                 return;
 
             }
 
 
-            const area =
-                length * width;
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: password
+
+                });
 
 
-            const price =
-                area * 30;
+
+            if (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "❌ Incorrect email or password.";
+
+                return;
+
+            }
 
 
-            document.getElementById(
-                "priceResult"
-            ).innerHTML =
 
-                "Area: " +
-                area.toFixed(2) +
-                " sq ft" +
-
-                "<br><br>" +
-
-                "Cleaning Price: KSh " +
-
-                price.toLocaleString("en-KE");
+            showAdminPage();
 
         }
 
 
 
-        /*
-         * GET NEXT CARPET ID
-         */
+        /* ==================================================
+           LOGOUT
+        ================================================== */
 
-        async function getNextCarpetId() {
+        async function logout() {
 
-            const { data, error } =
+            await supabaseClient.auth.signOut();
 
+            document.getElementById(
+                "adminPage"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "loginPage"
+            ).style.display = "flex";
+
+
+            document.getElementById(
+                "loginPassword"
+            ).value = "";
+
+        }
+
+
+
+        /* ==================================================
+           SHOW ADMIN PAGE
+        ================================================== */
+
+        function showAdminPage() {
+
+            document.getElementById(
+                "loginPage"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "adminPage"
+            ).style.display = "block";
+
+
+            generateNextCarpetId();
+
+            loadCarpets();
+
+        }
+
+
+
+        /* ==================================================
+           CHECK EXISTING LOGIN
+        ================================================== */
+
+        async function checkLogin() {
+
+
+            const {
+                data
+            } =
+                await supabaseClient.auth.getSession();
+
+
+            if (
+                data &&
+                data.session
+            ) {
+
+                showAdminPage();
+
+            }
+
+            else {
+
+                document.getElementById(
+                    "loginPage"
+                ).style.display = "flex";
+
+
+                document.getElementById(
+                    "adminPage"
+                ).style.display = "none";
+
+            }
+
+        }
+
+
+
+        /* ==================================================
+           GENERATE NEXT CARPET ID
+        ================================================== */
+
+        async function generateNextCarpetId() {
+
+
+            const {
+                data,
+                error
+            } =
                 await supabaseClient
 
                     .from("carpet_orders")
@@ -525,43 +1047,43 @@
 
                 console.error(error);
 
-                return null;
+                document.getElementById(
+                    "carpetId"
+                ).value = "CC-001";
+
+                return;
 
             }
+
 
 
             let highestNumber = 0;
 
 
+
             if (data) {
 
-                data.forEach(function(carpet) {
+                data.forEach(function(row) {
+
 
                     const id =
-                        carpet.carpet_id;
+                        row.carpet_id;
 
 
-                    if (!id) {
-                        return;
-                    }
-
-
-                    const match =
-                        id.match(/^CC-(\d+)$/i);
-
-
-                    if (match) {
+                    if (
+                        id &&
+                        id.startsWith("CC-")
+                    ) {
 
                         const number =
                             parseInt(
-                                match[1],
-                                10
+                                id.substring(3)
                             );
 
 
                         if (
-                            number >
-                            highestNumber
+                            !isNaN(number) &&
+                            number > highestNumber
                         ) {
 
                             highestNumber =
@@ -576,53 +1098,35 @@
             }
 
 
-            return (
-                "CC-" +
-                String(
-                    highestNumber + 1
-                ).padStart(3, "0")
-            );
 
-        }
+            const nextNumber =
+                highestNumber + 1;
 
-
-
-        /*
-         * SHOW NEXT ID
-         */
-
-        async function showNextCarpetId() {
 
             const nextId =
-                await getNextCarpetId();
+                "CC-" +
+                String(nextNumber)
+                    .padStart(3, "0");
 
 
-            if (nextId) {
-
-                document.getElementById(
-                    "carpetId"
-                ).value = nextId;
-
-            }
+            document.getElementById(
+                "carpetId"
+            ).value = nextId;
 
         }
 
 
 
-        /*
-         * SAVE CARPET
-         */
+        /* ==================================================
+           CALCULATE PRICE
+           KSh 30 PER SQUARE FOOT
+        ================================================== */
 
-        async function saveCarpet() {
-
-            const carpetId =
-                document.getElementById(
-                    "carpetId"
-                ).value.trim();
+        function calculatePrice() {
 
 
             const length =
-                parseFloat(
+                Number(
                     document.getElementById(
                         "length"
                     ).value
@@ -630,7 +1134,56 @@
 
 
             const width =
-                parseFloat(
+                Number(
+                    document.getElementById(
+                        "width"
+                    ).value
+                );
+
+
+            const area =
+                length * width;
+
+
+            const price =
+                area * 30;
+
+
+            document.getElementById(
+                "price"
+            ).textContent =
+                "KSh " +
+                price.toLocaleString(
+                    "en-KE"
+                );
+
+        }
+
+
+
+        /* ==================================================
+           SAVE CARPET
+        ================================================== */
+
+        async function saveCarpet() {
+
+
+            const carpetId =
+                document.getElementById(
+                    "carpetId"
+                ).value;
+
+
+            const length =
+                Number(
+                    document.getElementById(
+                        "length"
+                    ).value
+                );
+
+
+            const width =
+                Number(
                     document.getElementById(
                         "width"
                     ).value
@@ -643,31 +1196,6 @@
                 ).value;
 
 
-            if (
-
-                carpetId === "" ||
-
-                isNaN(length) ||
-
-                isNaN(width) ||
-
-                length <= 0 ||
-
-                width <= 0
-
-            ) {
-
-                document.getElementById(
-                    "savedMessage"
-                ).innerHTML =
-
-                    "⚠️ Please enter the carpet length and width.";
-
-                return;
-
-            }
-
-
             const area =
                 length * width;
 
@@ -676,8 +1204,38 @@
                 area * 30;
 
 
-            const { error } =
+            const message =
+                document.getElementById(
+                    "saveMessage"
+                );
 
+
+            message.textContent = "";
+
+
+
+            if (
+                !carpetId ||
+                length <= 0 ||
+                width <= 0
+            ) {
+
+                message.style.color =
+                    "#b00020";
+
+                message.textContent =
+                    "⚠️ Please enter the carpet length and width.";
+
+                return;
+
+            }
+
+
+
+            const {
+                data,
+                error
+            } =
                 await supabaseClient
 
                     .from("carpet_orders")
@@ -703,32 +1261,34 @@
 
                         }
 
-                    ]);
+                    ])
+
+                    .select();
+
 
 
             if (error) {
 
                 console.error(error);
 
-                document.getElementById(
-                    "savedMessage"
-                ).innerHTML =
+                message.style.color =
+                    "#b00020";
 
-                    "❌ Could not save carpet. " +
-                    error.message;
+                message.textContent =
+                    "❌ Could not save the carpet.";
 
                 return;
 
             }
 
 
-            document.getElementById(
-                "savedMessage"
-            ).innerHTML =
 
-                "✅ Carpet " +
-                carpetId +
-                " has been saved successfully!";
+            message.style.color =
+                "#16803c";
+
+            message.textContent =
+                "✅ Carpet saved successfully!";
+
 
 
             document.getElementById(
@@ -742,32 +1302,371 @@
 
 
             document.getElementById(
-                "priceResult"
-            ).innerHTML =
-
-                "Enter the carpet length and width.";
-
-
-            await showNextCarpetId();
+                "price"
+            ).textContent =
+                "KSh 0";
 
 
-            loadCarpets();
+            document.getElementById(
+                "status"
+            ).value =
+                "Received";
+
+
+
+            await generateNextCarpetId();
+
+            await loadCarpets();
 
         }
 
 
 
-        /*
-         * UPDATE STATUS
-         */
+        /* ==================================================
+           LOAD CARPETS
+        ================================================== */
+
+        async function loadCarpets() {
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+
+                    .from("carpet_orders")
+
+                    .select(
+                        "carpet_id, length, width, price, status"
+                    )
+
+                    .order(
+                        "carpet_id",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+
+            if (error) {
+
+                console.error(error);
+
+                return;
+
+            }
+
+
+
+            const tableBody =
+                document.getElementById(
+                    "carpetTableBody"
+                );
+
+
+            tableBody.innerHTML = "";
+
+
+
+            if (
+                !data ||
+                data.length === 0
+            ) {
+
+                tableBody.innerHTML =
+
+                    '<tr>' +
+
+                    '<td colspan="6" style="text-align:center;">' +
+
+                    'No carpet orders yet.' +
+
+                    '</td>' +
+
+                    '</tr>';
+
+                return;
+
+            }
+
+
+
+            data.forEach(function(carpet) {
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+
+                const qrId =
+                    "qr-" +
+                    carpet.carpet_id
+                        .replace(
+                            /[^a-zA-Z0-9_-]/g,
+                            ""
+                        );
+
+
+
+                row.innerHTML =
+
+                    '<td>' +
+
+                        '<div class="qr-container">' +
+
+                            '<div id="' +
+                            qrId +
+                            '"></div>' +
+
+                            '<button ' +
+
+                                'class="download-qr" ' +
+
+                                'onclick="downloadQR(\'' +
+                                carpet.carpet_id +
+                                '\')"' +
+
+                            '>' +
+
+                                'Download QR' +
+
+                            '</button>' +
+
+                        '</div>' +
+
+                    '</td>' +
+
+
+
+                    '<td>' +
+
+                        '<strong>' +
+
+                            carpet.carpet_id +
+
+                        '</strong>' +
+
+                    '</td>' +
+
+
+
+                    '<td>' +
+
+                        carpet.length +
+
+                        ' × ' +
+
+                        carpet.width +
+
+                        ' ft' +
+
+                    '</td>' +
+
+
+
+                    '<td>' +
+
+                        'KSh ' +
+
+                        Number(
+                            carpet.price
+                        ).toLocaleString(
+                            "en-KE"
+                        ) +
+
+                    '</td>' +
+
+
+
+                    '<td>' +
+
+                        carpet.status +
+
+                    '</td>' +
+
+
+
+                    '<td>' +
+
+                        '<select ' +
+
+                            'class="status-select" ' +
+
+                            'id="status-' +
+                            carpet.carpet_id +
+                            '"' +
+
+                        '>' +
+
+                            '<option value="Received"' +
+
+                                (
+                                    carpet.status ===
+                                    "Received"
+                                    ? " selected"
+                                    : ""
+                                ) +
+
+                            '>' +
+
+                                'Received' +
+
+                            '</option>' +
+
+
+
+                            '<option value="Processing"' +
+
+                                (
+                                    carpet.status ===
+                                    "Processing"
+                                    ? " selected"
+                                    : ""
+                                ) +
+
+                            '>' +
+
+                                'Processing' +
+
+                            '</option>' +
+
+
+
+                            '<option value="Ready"' +
+
+                                (
+                                    carpet.status ===
+                                    "Ready"
+                                    ? " selected"
+                                    : ""
+                                ) +
+
+                            '>' +
+
+                                'Ready' +
+
+                            '</option>' +
+
+
+
+                            '<option value="Out for Delivery"' +
+
+                                (
+                                    carpet.status ===
+                                    "Out for Delivery"
+                                    ? " selected"
+                                    : ""
+                                ) +
+
+                            '>' +
+
+                                'Out for Delivery' +
+
+                            '</option>' +
+
+
+
+                            '<option value="Delivered"' +
+
+                                (
+                                    carpet.status ===
+                                    "Delivered"
+                                    ? " selected"
+                                    : ""
+                                ) +
+
+                            '>' +
+
+                                'Delivered' +
+
+                            '</option>' +
+
+                        '</select>' +
+
+
+                        '<button ' +
+
+                            'class="update-button" ' +
+
+                            'onclick="updateStatus(\'' +
+                            carpet.carpet_id +
+                            '\')"' +
+
+                        '>' +
+
+                            'Update' +
+
+                        '</button>' +
+
+                    '</td>';
+
+
+
+                tableBody.appendChild(
+                    row
+                );
+
+
+
+                /* Generate QR */
+
+                new QRCode(
+
+                    document.getElementById(
+                        qrId
+                    ),
+
+                    {
+
+                        text:
+                            TRACKING_URL +
+                            encodeURIComponent(
+                                carpet.carpet_id
+                            ),
+
+                        width: 140,
+
+                        height: 140
+
+                    }
+
+                );
+
+            });
+
+        }
+
+
+
+        /* ==================================================
+           UPDATE STATUS
+        ================================================== */
 
         async function updateStatus(
-            carpetId,
-            newStatus
+            carpetId
         ) {
 
-            const { error } =
 
+            const select =
+                document.getElementById(
+                    "status-" +
+                    carpetId
+                );
+
+
+            const newStatus =
+                select.value;
+
+
+
+            const {
+                error
+            } =
                 await supabaseClient
 
                     .from("carpet_orders")
@@ -785,110 +1684,59 @@
                     );
 
 
+
             if (error) {
 
                 console.error(error);
 
                 alert(
-                    "❌ Could not update status. " +
-                    error.message
+                    "❌ Could not update status."
                 );
 
                 return;
 
             }
+
 
 
             alert(
-                "✅ " +
-                carpetId +
-                " status updated to " +
-                newStatus
+                "✅ Status updated successfully."
             );
 
 
-            loadCarpets();
+            await loadCarpets();
 
         }
 
 
 
-        /*
-         * CREATE TRACKING URL
-         */
+        /* ==================================================
+           DOWNLOAD QR
+        ================================================== */
 
-        function getTrackingURL(carpetId) {
-
-            return (
-                "https://annekairu097-create.github.io/" +
-                "carpet-cleaning-system/track.html?id=" +
-                encodeURIComponent(carpetId)
-            );
-
-        }
-
-
-
-        /*
-         * CREATE QR CODE
-         */
-
-        function createQRCode(
-            container,
+        function downloadQR(
             carpetId
         ) {
 
-            container.innerHTML = "";
 
-
-            new QRCode(
-
-                container,
-
-                {
-
-                    text:
-                        getTrackingURL(carpetId),
-
-                    width:
-                        140,
-
-                    height:
-                        140,
-
-                    colorDark:
-                        "#000000",
-
-                    colorLight:
-                        "#ffffff",
-
-                    correctLevel:
-                        QRCode.CorrectLevel.H
-
-                }
-
-            );
-
-        }
-
-
-
-        /*
-         * DOWNLOAD QR CODE
-         */
-
-        function downloadQR(carpetId) {
-
-            const container =
-                document.getElementById(
-                    "qr-" + carpetId
+            const qrId =
+                "qr-" +
+                carpetId.replace(
+                    /[^a-zA-Z0-9_-]/g,
+                    ""
                 );
 
 
-            if (!container) {
+            const qrContainer =
+                document.getElementById(
+                    qrId
+                );
+
+
+            if (!qrContainer) {
 
                 alert(
-                    "❌ QR code could not be found."
+                    "QR code not found."
                 );
 
                 return;
@@ -896,8 +1744,9 @@
             }
 
 
+
             const canvas =
-                container.querySelector(
+                qrContainer.querySelector(
                     "canvas"
                 );
 
@@ -905,7 +1754,7 @@
             if (!canvas) {
 
                 alert(
-                    "❌ QR code is not ready yet."
+                    "QR code is still loading. Please try again."
                 );
 
                 return;
@@ -913,368 +1762,74 @@
             }
 
 
-            try {
 
-                const image =
-                    canvas.toDataURL(
-                        "image/png"
-                    );
-
-
-                const link =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                link.href =
-                    image;
-
-
-                link.download =
-                    "Cleanova-" +
-                    carpetId +
-                    "-QR.png";
-
-
-                document.body.appendChild(
-                    link
+            const image =
+                canvas.toDataURL(
+                    "image/png"
                 );
 
 
-                link.click();
 
-
-                document.body.removeChild(
-                    link
-                );
-
-            }
-
-            catch (error) {
-
-                console.error(error);
-
-
-                alert(
-                    "❌ Could not download QR code."
-                );
-
-            }
-
-        }
-
-
-
-        /*
-         * LOAD CARPETS
-         */
-
-        async function loadCarpets() {
-
-            const { data, error } =
-
-                await supabaseClient
-
-                    .from("carpet_orders")
-
-                    .select("*")
-
-                    .order(
-                        "id",
-                        {
-                            ascending: true
-                        }
-                    );
-
-
-            if (error) {
-
-                console.error(error);
-
-
-                document.getElementById(
-                    "savedMessage"
-                ).innerHTML =
-
-                    "❌ Could not load carpets. " +
-                    error.message;
-
-                return;
-
-            }
-
-
-            const table =
-                document.getElementById(
-                    "carpetList"
+            const link =
+                document.createElement(
+                    "a"
                 );
 
 
-            table.innerHTML = "";
+            link.href =
+                image;
 
 
-            data.forEach(
-                function(carpet) {
+            link.download =
+                "Cleanova-" +
+                carpetId +
+                "-QR.png";
 
 
-                    const row =
-                        table.insertRow();
+            document.body.appendChild(
+                link
+            );
 
 
-                    /*
-                     * CARPET ID
-                     */
+            link.click();
 
-                    row.insertCell(0).innerHTML =
-                        carpet.carpet_id;
 
-
-
-                    /*
-                     * SIZE
-                     */
-
-                    row.insertCell(1).innerHTML =
-
-                        carpet.length +
-                        " × " +
-                        carpet.width +
-                        " ft";
-
-
-
-                    /*
-                     * PRICE
-                     */
-
-                    row.insertCell(2).innerHTML =
-
-                        "KSh " +
-
-                        Number(
-                            carpet.price
-                        ).toLocaleString(
-                            "en-KE"
-                        );
-
-
-
-                    /*
-                     * STATUS
-                     */
-
-                    row.insertCell(3).innerHTML =
-                        carpet.status;
-
-
-
-                    /*
-                     * STATUS UPDATE
-                     */
-
-                    const statusCell =
-                        row.insertCell(4);
-
-
-                    const select =
-                        document.createElement(
-                            "select"
-                        );
-
-
-                    select.className =
-                        "status-select";
-
-
-                    const statuses = [
-
-                        "Received",
-                        "Processing",
-                        "Ready",
-                        "Out for Delivery",
-                        "Delivered"
-
-                    ];
-
-
-                    statuses.forEach(
-                        function(status) {
-
-                            const option =
-                                document.createElement(
-                                    "option"
-                                );
-
-
-                            option.value =
-                                status;
-
-
-                            option.textContent =
-                                status;
-
-
-                            if (
-                                status ===
-                                carpet.status
-                            ) {
-
-                                option.selected =
-                                    true;
-
-                            }
-
-
-                            select.appendChild(
-                                option
-                            );
-
-                        }
-                    );
-
-
-                    statusCell.appendChild(
-                        select
-                    );
-
-
-                    const updateButton =
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    updateButton.className =
-                        "update-button";
-
-
-                    updateButton.textContent =
-                        "Update";
-
-
-                    updateButton.onclick =
-                        function() {
-
-                            updateStatus(
-
-                                carpet.carpet_id,
-
-                                select.value
-
-                            );
-
-                        };
-
-
-                    statusCell.appendChild(
-                        updateButton
-                    );
-
-
-
-                    /*
-                     * QR CODE
-                     */
-
-                    const qrCell =
-                        row.insertCell(5);
-
-
-                    qrCell.className =
-                        "qr-container";
-
-
-                    const qrBox =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    qrBox.id =
-                        "qr-" +
-                        carpet.carpet_id;
-
-
-                    qrCell.appendChild(
-                        qrBox
-                    );
-
-
-                    const qrId =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    qrId.className =
-                        "qr-id";
-
-
-                    qrId.textContent =
-                        carpet.carpet_id;
-
-
-                    qrCell.appendChild(
-                        qrId
-                    );
-
-
-                    const qrButton =
-                        document.createElement(
-                            "button"
-                        );
-
-
-                    qrButton.className =
-                        "qr-button";
-
-
-                    qrButton.textContent =
-                        "Download QR";
-
-
-                    qrButton.onclick =
-                        function() {
-
-                            downloadQR(
-                                carpet.carpet_id
-                            );
-
-                        };
-
-
-                    qrCell.appendChild(
-                        qrButton
-                    );
-
-
-                    /*
-                     * GENERATE QR
-                     */
-
-                    createQRCode(
-
-                        qrBox,
-
-                        carpet.carpet_id
-
-                    );
-
-                }
+            document.body.removeChild(
+                link
             );
 
         }
 
 
 
-        /*
-         * START DASHBOARD
-         */
+        /* ==================================================
+           ENTER KEY LOGIN
+        ================================================== */
 
-        showNextCarpetId();
+        document
+            .getElementById("loginPassword")
+            .addEventListener(
+                "keydown",
+                function(event) {
 
-        loadCarpets();
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        login();
+
+                    }
+
+                }
+            );
+
+
+
+        /* ==================================================
+           START
+        ================================================== */
+
+        checkLogin();
 
 
     </script>
