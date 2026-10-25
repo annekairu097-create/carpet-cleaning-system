@@ -190,6 +190,55 @@
       background: #641683;
     }
 
+    /* CONTACT / BOOKING SECTION */
+
+    .contact-section {
+      background: linear-gradient(135deg, #5b1783, #8e44ad);
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    .contact-section h2 {
+      margin: 0 0 12px;
+      font-size: 30px;
+    }
+
+    .contact-section p {
+      max-width: 650px;
+      margin: 0 auto 15px;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .contact-details {
+      margin: 20px auto 25px;
+      max-width: 650px;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-button {
+      display: inline-block;
+      padding: 14px 24px;
+      background: white;
+      color: #6a1b9a;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .contact-button:hover {
+      background: #f2eafa;
+    }
+
     .footer {
       background: #2b2140;
       color: white;
@@ -260,7 +309,7 @@
 
 <body>
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -286,10 +335,7 @@
 
     <br>
 
-    <a
-      href="track.html"
-      class="button"
-    >
+    <a href="track.html" class="button">
       Track Your Carpet
     </a>
 
@@ -311,54 +357,23 @@
     <div class="services">
 
       <div class="service">
-
-        <div class="service-icon">
-          🧼
-        </div>
-
-        <h3>
-          Carpet Cleaning
-        </h3>
-
+        <div class="service-icon">🧼</div>
+        <h3>Carpet Cleaning</h3>
       </div>
 
-
       <div class="service">
-
-        <div class="service-icon">
-          🛋️
-        </div>
-
-        <h3>
-          Couch &amp; Upholstery Cleaning
-        </h3>
-
+        <div class="service-icon">🛋️</div>
+        <h3>Couch &amp; Upholstery Cleaning</h3>
       </div>
 
-
       <div class="service">
-
-        <div class="service-icon">
-          🛏️
-        </div>
-
-        <h3>
-          Mattress Cleaning
-        </h3>
-
+        <div class="service-icon">🛏️</div>
+        <h3>Mattress Cleaning</h3>
       </div>
 
-
       <div class="service">
-
-        <div class="service-icon">
-          🏢
-        </div>
-
-        <h3>
-          Office Cleaning
-        </h3>
-
+        <div class="service-icon">🏢</div>
+        <h3>Office Cleaning</h3>
       </div>
 
     </div>
@@ -450,11 +465,45 @@
         Track your carpet's status and see when it is ready for delivery.
       </p>
 
-      <a
-        href="track.html"
-        class="track-button"
-      >
+      <a href="track.html" class="track-button">
         Track My Carpet
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACT / BOOKING -->
+
+  <section class="contact-section">
+
+    <h2>
+      Ready for a Cleaner Space?
+    </h2>
+
+    <p>
+      Let Cleanova take care of the cleaning.
+    </p>
+
+    <div class="contact-details">
+
+      🧼 Professional cleaning<br>
+
+      🚚 Carpets cleaned &amp; delivered within 24 hours<br>
+
+      📍 Serving Kiambu &amp; Kiambu Road and surrounding areas
+
+    </div>
+
+    <div class="contact-buttons">
+
+      <a href="#" class="contact-button">
+        Book a Cleaning
+      </a>
+
+      <a href="track.html" class="contact-button">
+        Track Your Carpet
       </a>
 
     </div>
