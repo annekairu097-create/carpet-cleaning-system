@@ -1,1102 +1,1647 @@
-```html
+```html id="m7k3qp"
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cleanova Admin Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <title>Cleanova Admin Dashboard</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f6f3fa;
-    color: #222;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* LOGIN */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f3fb;
+      color: #29202f;
+      min-height: 100vh;
+    }
 
-.login-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-.login-box {
-    background: white;
-    width: 100%;
-    max-width: 420px;
-    padding: 35px;
-    border-radius: 18px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-}
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
 
-.logo {
-    text-align: center;
-    color: #6a1b9a;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+    .brand {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-.subtitle {
-    text-align: center;
-    color: #777;
-    margin-bottom: 30px;
-}
+    .login-title {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #555;
+    }
 
-input,
-select,
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 15px;
-}
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-button {
-    background: #6a1b9a;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+      font-family: inherit;
+    }
 
-button:hover {
-    background: #4a126d;
-}
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
 
-.logout {
-    width: auto;
-    padding: 9px 18px;
-    margin: 0;
-    background: white;
-    color: #6a1b9a;
-    border: 1px solid #6a1b9a;
-}
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #6a1b9a;
+    }
 
-.logout:hover {
-    background: #f3e5f5;
-}
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-.hidden {
-    display: none;
-}
+    .primary-btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 9px;
+      background: #6a1b9a;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-/* DASHBOARD */
+    .primary-btn:hover {
+      background: #55147d;
+    }
 
-.header {
-    background: #6a1b9a;
-    color: white;
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .error-message {
+      background: #ffebee;
+      color: #c62828;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+      font-size: 14px;
+    }
 
-.header h1 {
-    margin: 0;
-    font-size: 25px;
-}
+    #dashboard {
+      display: none;
+    }
 
-.header p {
-    margin: 5px 0 0;
-    opacity: 0.85;
-}
+    .topbar {
+      background: #6a1b9a;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
 
-.dashboard {
-    max-width: 1400px;
-    margin: auto;
-    padding: 25px;
-}
+    .topbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-/* SUMMARY CARDS */
+    .logout-btn {
+      border: 1px solid rgba(255,255,255,0.7);
+      background: transparent;
+      color: white;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-bottom: 25px;
-}
+    .logout-btn:hover {
+      background: white;
+      color: #6a1b9a;
+    }
 
-.card {
-    background: white;
-    padding: 22px;
-    border-radius: 15px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-}
+    .container {
+      width: 94%;
+      max-width: 1400px;
+      margin: 25px auto;
+    }
 
-.card-title {
-    color: #777;
-    font-size: 14px;
-    margin-bottom: 8px;
-}
+    .welcome {
+      margin-bottom: 22px;
+    }
 
-.card-number {
-    font-size: 30px;
-    font-weight: bold;
-    color: #6a1b9a;
-}
+    .welcome h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
 
-/* ADD CARPET */
+    .welcome p {
+      color: #777;
+    }
 
-.add-section {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-}
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
 
-.add-section h2 {
-    margin-top: 0;
-    color: #6a1b9a;
-}
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+    }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-}
+    .stat-label {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
 
-.form-grid input,
-.form-grid select {
-    margin-bottom: 0;
-}
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #6a1b9a;
+    }
 
-.add-button {
-    margin-top: 20px;
-    max-width: 200px;
-}
+    .section {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+      margin-bottom: 25px;
+    }
 
-/* SEARCH */
-
-.search-box {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-}
-
-.search-box input {
-    margin: 0;
-}
-
-/* TABLE */
-
-.table-container {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    overflow-x: auto;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 1100px;
-}
-
-th {
-    background: #f1e7f6;
-    color: #4a126d;
-    padding: 13px;
-    text-align: left;
-    font-size: 14px;
-}
-
-td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-}
-
-tr:hover {
-    background: #faf7fc;
-}
-
-.status-select {
-    width: 150px;
-    margin: 0;
-}
-
-.update-button {
-    width: auto;
-    padding: 8px 12px;
-    margin: 0;
-}
-
-.qr {
-    display: flex;
-    justify-content: center;
-}
-
-.download-button {
-    background: #eeeeee;
-    color: #333;
-    width: auto;
-    padding: 7px 10px;
-    margin: 0;
-}
-
-.download-button:hover {
-    background: #ddd;
-}
-
-.message {
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: none;
-}
-
-.success {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.error {
-    background: #ffebee;
-    color: #c62828;
-}
-
-/* MOBILE */
-
-@media (max-width: 900px) {
-    .summary {
-        grid-template-columns: repeat(2, 1fr);
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 18px;
     }
 
     .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .calculated-price {
+      background: #f3e5f5;
+      border-radius: 9px;
+      padding: 12px;
+      font-weight: bold;
+      color: #6a1b9a;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      background: #faf7fc;
+      color: #555;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .status-select {
+      min-width: 150px;
+    }
+
+    .qr-box {
+      text-align: center;
+    }
+
+    .qr-box img {
+      width: 90px;
+      height: 90px;
+      display: block;
+      margin: auto;
+    }
+
+    .qr-download {
+      display: inline-block;
+      margin-top: 6px;
+      color: #6a1b9a;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .search-box {
+      margin-bottom: 18px;
+    }
+
+    .success-message {
+      display: none;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .small-text {
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .stats {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
+      }
 
-@media (max-width: 600px) {
-
-    .header {
-        padding: 18px;
-    }
-
-    .header h1 {
-        font-size: 20px;
-    }
-
-    .dashboard {
-        padding: 15px;
-    }
-
-    .summary {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .card {
-        padding: 16px;
-    }
-
-    .card-number {
-        font-size: 24px;
-    }
-
-    .form-grid {
+      .form-grid {
         grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: auto;
+      }
     }
 
-    .add-button {
-        max-width: 100%;
+    @media (max-width: 600px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        padding: 15px;
+      }
+
+      .topbar-brand {
+        font-size: 20px;
+      }
+
+      .container {
+        width: 92%;
+      }
+
+      .section {
+        padding: 17px;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+  <!-- LOGIN -->
 
-<div id="loginScreen" class="login-container">
+  <div id="loginScreen" class="login-container">
 
-    <div class="login-box">
+    <div class="login-card">
 
-        <div class="logo">Cleanova</div>
+      <div class="brand">
+        Cleanova
+      </div>
 
-        <div class="subtitle">
-            Cleaning Solutions — Admin Login
-        </div>
+      <div class="login-title">
+        Admin Dashboard
+      </div>
 
-        <div id="loginMessage" class="message"></div>
+      <div id="loginError" class="error-message"></div>
 
-        <label>Email</label>
-        <input type="email" id="email" placeholder="Admin email">
+      <div class="form-group">
 
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Password">
+        <label for="email">
+          Email
+        </label>
 
-        <button onclick="login()">Login</button>
+        <input
+          type="email"
+          id="email"
+          placeholder="Admin email"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+        >
+
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="login()"
+      >
+        Login
+      </button>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- DASHBOARD -->
+  <!-- DASHBOARD -->
 
-<div id="dashboardScreen" class="hidden">
+  <div id="dashboard">
 
-    <div class="header">
+    <div class="topbar">
 
-        <div>
-            <h1>Cleanova Admin Dashboard</h1>
-            <p>Carpet Cleaning Management System</p>
-        </div>
+      <div class="topbar-brand">
+        Cleanova Cleaning Solutions
+      </div>
 
-        <button class="logout" onclick="logout()">Logout</button>
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Logout
+      </button>
 
     </div>
 
 
-    <div class="dashboard">
+    <div class="container">
 
-        <!-- SUMMARY -->
+      <div class="welcome">
 
-        <div class="summary">
+        <h1>
+          Admin Dashboard
+        </h1>
 
-            <div class="card">
-                <div class="card-title">Total Carpets</div>
-                <div class="card-number" id="totalCount">0</div>
-            </div>
+        <p>
+          Manage carpet orders, customer details and delivery status.
+        </p>
 
-            <div class="card">
-                <div class="card-title">Processing</div>
-                <div class="card-number" id="processingCount">0</div>
-            </div>
+      </div>
 
-            <div class="card">
-                <div class="card-title">Ready</div>
-                <div class="card-number" id="readyCount">0</div>
-            </div>
 
-            <div class="card">
-                <div class="card-title">Delivered</div>
-                <div class="card-number" id="deliveredCount">0</div>
-            </div>
+      <!-- STATISTICS -->
+
+      <div class="stats">
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Total Carpets
+          </div>
+
+          <div
+            class="stat-number"
+            id="totalCount"
+          >
+            0
+          </div>
 
         </div>
 
 
-        <!-- ADD CARPET -->
+        <div class="stat-card">
 
-        <div class="add-section">
+          <div class="stat-label">
+            Received
+          </div>
 
-            <h2>Add New Carpet</h2>
+          <div
+            class="stat-number"
+            id="receivedCount"
+          >
+            0
+          </div>
 
-            <div id="addMessage" class="message"></div>
+        </div>
 
-            <div class="form-grid">
 
-                <div>
-                    <label>Length (ft)</label>
-                    <input type="number" id="length" placeholder="e.g. 6">
-                </div>
+        <div class="stat-card">
 
-                <div>
-                    <label>Width (ft)</label>
-                    <input type="number" id="width" placeholder="e.g. 8">
-                </div>
+          <div class="stat-label">
+            Ready
+          </div>
 
-                <div>
-                    <label>Expected Ready Date</label>
-                    <input type="date" id="expectedDate">
-                </div>
+          <div
+            class="stat-number"
+            id="readyCount"
+          >
+            0
+          </div>
 
-                <div>
-                    <label>Status</label>
-                    <select id="status">
-                        <option value="Received">Received</option>
-                        <option value="Processing">Processing</option>
-                        <option value="Ready">Ready</option>
-                        <option value="Out for Delivery">Out for Delivery</option>
-                        <option value="Delivered">Delivered</option>
-                    </select>
-                </div>
+        </div>
 
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Delivered
+          </div>
+
+          <div
+            class="stat-number"
+            id="deliveredCount"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ADD CARPET -->
+
+      <div class="section">
+
+        <div class="section-title">
+          Add New Carpet
+        </div>
+
+        <div
+          id="successMessage"
+          class="success-message"
+        ></div>
+
+
+        <div
+          id="addError"
+          class="error-message"
+        ></div>
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>
+              Carpet ID
+            </label>
+
+            <input
+              type="text"
+              id="carpetID"
+              readonly
+            >
+
+            <div class="small-text">
+              Automatically generated.
             </div>
 
-            <button class="add-button" onclick="addCarpet()">
-                + Add Carpet
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Client Name
+            </label>
+
+            <input
+              type="text"
+              id="clientName"
+              placeholder="Client name"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Client Phone
+            </label>
+
+            <input
+              type="tel"
+              id="clientPhone"
+              placeholder="Phone number"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Client Address
+            </label>
+
+            <input
+              type="text"
+              id="clientAddress"
+              placeholder="Delivery address"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Length (ft)
+            </label>
+
+            <input
+              type="number"
+              id="length"
+              min="0"
+              step="0.01"
+              placeholder="Length"
+              oninput="calculatePrice()"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Width (ft)
+            </label>
+
+            <input
+              type="number"
+              id="width"
+              min="0"
+              step="0.01"
+              placeholder="Width"
+              oninput="calculatePrice()"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Price
+            </label>
+
+            <div
+              id="priceDisplay"
+              class="calculated-price"
+            >
+              KSh 0
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Expected Ready Date
+            </label>
+
+            <input
+              type="date"
+              id="expectedDate"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Status
+            </label>
+
+            <select id="status">
+
+              <option value="Received">
+                Received
+              </option>
+
+              <option value="Ready">
+                Ready
+              </option>
+
+              <option value="Out for Delivery">
+                Out for Delivery
+              </option>
+
+              <option value="Delivered">
+                Delivered
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group full-width">
+
+            <label>
+              Notes
+            </label>
+
+            <textarea
+              id="notes"
+              placeholder="Any notes about this carpet or order"
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group full-width">
+
+            <button
+              class="primary-btn"
+              onclick="addCarpet()"
+            >
+              Save Carpet
             </button>
 
+          </div>
+
         </div>
 
+      </div>
 
-        <!-- SEARCH -->
+
+      <!-- CARPET ORDERS -->
+
+      <div class="section">
+
+        <div class="section-title">
+          Carpet Orders
+        </div>
+
 
         <div class="search-box">
 
-            <input
-                type="text"
-                id="search"
-                placeholder="🔍 Search by Carpet ID..."
-                onkeyup="filterTable()"
-            >
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by Carpet ID, client name or phone..."
+            oninput="filterTable()"
+          >
 
         </div>
 
 
-        <!-- TABLE -->
+        <div class="table-wrapper">
 
-        <div class="table-container">
+          <table>
 
-            <table>
+            <thead>
 
-                <thead>
+              <tr>
 
-                    <tr>
-                        <th>Carpet ID</th>
-                        <th>Length</th>
-                        <th>Width</th>
-                        <th>Price</th>
-                        <th>Expected Ready</th>
-                        <th>Last Updated</th>
-                        <th>Status</th>
-                        <th>Update</th>
-                        <th>QR Code</th>
-                        <th>Download QR</th>
-                    </tr>
+                <th>
+                  Carpet ID
+                </th>
 
-                </thead>
+                <th>
+                  Client
+                </th>
 
-                <tbody id="carpetTable"></tbody>
+                <th>
+                  Phone
+                </th>
 
-            </table>
+                <th>
+                  Address
+                </th>
+
+                <th>
+                  Size
+                </th>
+
+                <th>
+                  Price
+                </th>
+
+                <th>
+                  Ready Date
+                </th>
+
+                <th>
+                  Status
+                </th>
+
+                <th>
+                  Last Updated
+                </th>
+
+                <th>
+                  QR Code
+                </th>
+
+                <th>
+                  Notes
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="ordersTableBody"></tbody>
+
+          </table>
 
         </div>
+
+      </div>
 
     </div>
 
-</div>
+  </div>
 
 
-<script>
+  <script>
 
-const SUPABASE_URL =
-"https://zrqbawumswnoxfovsyoe.supabase.co";
+    const SUPABASE_URL =
+      "https://zrqbawumswnoxfovsyoe.supabase.co";
 
-const SUPABASE_KEY =
-"sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
-
-const supabaseClient =
-supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const SUPABASE_KEY =
+      "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
 
 
-/* LOGIN */
-
-async function login() {
-
-    const email =
-        document.getElementById("email").value;
-
-    const password =
-        document.getElementById("password").value;
-
-    const message =
-        document.getElementById("loginMessage");
-
-    message.style.display = "none";
-
-    const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-        });
-
-    if (error) {
-
-        message.className = "message error";
-        message.innerText =
-            "Login failed: " + error.message;
-
-        message.style.display = "block";
-
-        return;
-    }
-
-    showDashboard();
-
-}
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
 
-/* SHOW DASHBOARD */
-
-function showDashboard() {
-
-    document
-        .getElementById("loginScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("dashboardScreen")
-        .classList.remove("hidden");
-
-    loadCarpets();
-
-}
+    let allCarpets = [];
 
 
-/* LOGOUT */
+    async function checkSession() {
 
-async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    document
-        .getElementById("dashboardScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("loginScreen")
-        .classList.remove("hidden");
-
-}
+      const {
+        data: {
+          session
+        }
+      } = await supabaseClient.auth.getSession();
 
 
-/* CHECK SESSION */
-
-async function checkSession() {
-
-    const { data } =
-        await supabaseClient.auth.getSession();
-
-    if (data.session) {
+      if (session) {
 
         showDashboard();
 
-    }
+      } else {
 
-}
+        showLogin();
 
-
-/* GENERATE NEXT CARPET ID */
-
-async function generateCarpetID() {
-
-    const { data, error } =
-        await supabaseClient
-            .from("carpet_orders")
-            .select("carpet_id");
-
-    if (error || !data || data.length === 0) {
-
-        return "CC-001";
+      }
 
     }
 
-    let highest = 0;
 
-    data.forEach(item => {
+    function showLogin() {
 
-        const match =
-            item.carpet_id.match(/CC-(\d+)/);
+      document.getElementById(
+        "loginScreen"
+      ).style.display = "flex";
 
-        if (match) {
+      document.getElementById(
+        "dashboard"
+      ).style.display = "none";
 
-            const number =
-                parseInt(match[1]);
-
-            if (number > highest) {
-                highest = number;
-            }
-
-        }
-
-    });
-
-    const next =
-        highest + 1;
-
-    return "CC-" +
-        String(next).padStart(3, "0");
-
-}
+    }
 
 
-/* ADD CARPET */
+    function showDashboard() {
 
-async function addCarpet() {
+      document.getElementById(
+        "loginScreen"
+      ).style.display = "none";
 
-    const length =
-        parseFloat(
-            document.getElementById("length").value
+      document.getElementById(
+        "dashboard"
+      ).style.display = "block";
+
+      generateNextCarpetID();
+
+      loadCarpets();
+
+    }
+
+
+    async function login() {
+
+      const email =
+        document.getElementById(
+          "email"
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          "password"
+        ).value;
+
+
+      const errorBox =
+        document.getElementById(
+          "loginError"
         );
 
-    const width =
-        parseFloat(
-            document.getElementById("width").value
-        );
 
-    const expectedDate =
-        document.getElementById("expectedDate").value;
-
-    const status =
-        document.getElementById("status").value;
-
-    const message =
-        document.getElementById("addMessage");
+      errorBox.style.display = "none";
 
 
-    if (!length || !width) {
+      const {
+        error
+      } =
+        await supabaseClient.auth.signInWithPassword({
 
-        message.className =
-            "message error";
+          email: email,
 
-        message.innerText =
-            "Please enter the carpet length and width.";
+          password: password
 
-        message.style.display = "block";
+        });
+
+
+      if (error) {
+
+        errorBox.textContent =
+          error.message;
+
+        errorBox.style.display =
+          "block";
 
         return;
+
+      }
+
+
+      showDashboard();
+
     }
 
 
-    const carpetID =
-        await generateCarpetID();
+    async function logout() {
 
-    const area =
-        length * width;
+      await supabaseClient.auth.signOut();
 
-    const price =
-        area * 30;
+      showLogin();
 
-
-    const { error } =
-        await supabaseClient
-            .from("carpet_orders")
-            .insert([{
-
-                carpet_id: carpetID,
-
-                length: length,
-
-                width: width,
-
-                price: price,
-
-                expected_ready_date:
-                    expectedDate || null,
-
-                status: status,
-
-                updated_at:
-                    new Date().toISOString()
-
-            }]);
-
-
-    if (error) {
-
-        message.className =
-            "message error";
-
-        message.innerText =
-            "Error: " + error.message;
-
-        message.style.display = "block";
-
-        return;
     }
 
 
-    message.className =
-        "message success";
+    async function generateNextCarpetID() {
 
-    message.innerText =
-        carpetID +
-        " added successfully!";
-
-    message.style.display = "block";
-
-
-    document.getElementById("length").value = "";
-    document.getElementById("width").value = "";
-    document.getElementById("expectedDate").value = "";
-
-    loadCarpets();
-
-}
-
-
-/* LOAD CARPETS */
-
-async function loadCarpets() {
-
-    const { data, error } =
+      const {
+        data,
+        error
+      } =
         await supabaseClient
-            .from("carpet_orders")
-            .select(
-                "carpet_id, length, width, price, expected_ready_date, status, updated_at"
-            )
-            .order("id", { ascending: true });
+
+          .from("carpet_orders")
+
+          .select("carpet_id");
 
 
-    if (error) {
+      if (error) {
 
         console.error(error);
 
         return;
+
+      }
+
+
+      let highestNumber = 0;
+
+
+      data.forEach(carpet => {
+
+        const match =
+          String(carpet.carpet_id)
+            .match(/^CC-(\d+)$/i);
+
+
+        if (match) {
+
+          const number =
+            parseInt(
+              match[1],
+              10
+            );
+
+
+          if (number > highestNumber) {
+
+            highestNumber = number;
+
+          }
+
+        }
+
+      });
+
+
+      const nextNumber =
+        highestNumber + 1;
+
+
+      document.getElementById(
+        "carpetID"
+      ).value =
+        `CC-${String(nextNumber).padStart(3, "0")}`;
+
     }
 
 
-    updateSummary(data);
+    function calculatePrice() {
 
-    displayCarpets(data);
-
-}
-
-
-/* SUMMARY */
-
-function updateSummary(data) {
-
-    document.getElementById("totalCount")
-        .innerText = data.length;
+      const length =
+        parseFloat(
+          document.getElementById(
+            "length"
+          ).value
+        ) || 0;
 
 
-    document.getElementById("processingCount")
-        .innerText =
-        data.filter(
-            item => item.status === "Processing"
+      const width =
+        parseFloat(
+          document.getElementById(
+            "width"
+          ).value
+        ) || 0;
+
+
+      const price =
+        length * width * 30;
+
+
+      document.getElementById(
+        "priceDisplay"
+      ).textContent =
+        `KSh ${price.toLocaleString()}`;
+
+    }
+
+
+    async function addCarpet() {
+
+      const addError =
+        document.getElementById(
+          "addError"
+        );
+
+      const successMessage =
+        document.getElementById(
+          "successMessage"
+        );
+
+
+      addError.style.display =
+        "none";
+
+      successMessage.style.display =
+        "none";
+
+
+      const carpetID =
+        document.getElementById(
+          "carpetID"
+        ).value.trim();
+
+
+      const clientName =
+        document.getElementById(
+          "clientName"
+        ).value.trim();
+
+
+      const clientPhone =
+        document.getElementById(
+          "clientPhone"
+        ).value.trim();
+
+
+      const clientAddress =
+        document.getElementById(
+          "clientAddress"
+        ).value.trim();
+
+
+      const length =
+        parseFloat(
+          document.getElementById(
+            "length"
+          ).value
+        );
+
+
+      const width =
+        parseFloat(
+          document.getElementById(
+            "width"
+          ).value
+        );
+
+
+      const expectedDate =
+        document.getElementById(
+          "expectedDate"
+        ).value;
+
+
+      const status =
+        document.getElementById(
+          "status"
+        ).value;
+
+
+      const notes =
+        document.getElementById(
+          "notes"
+        ).value.trim();
+
+
+      if (
+        !carpetID ||
+        !clientName ||
+        !length ||
+        !width
+      ) {
+
+        addError.textContent =
+          "Please enter the Carpet ID, client name, length and width.";
+
+        addError.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      const price =
+        length * width * 30;
+
+
+      const orderData = {
+
+        carpet_id:
+          carpetID,
+
+        Clients_name:
+          clientName,
+
+        "Clients_Phone number":
+          clientPhone || null,
+
+        Clients_Address:
+          clientAddress || null,
+
+        Notes:
+          notes || null,
+
+        length:
+          length,
+
+        width:
+          width,
+
+        price:
+          price,
+
+        expected_ready_date:
+          expectedDate || null,
+
+        status:
+          status,
+
+        updated_at:
+          new Date().toISOString()
+
+      };
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+
+          .from("carpet_orders")
+
+          .insert([
+            orderData
+          ]);
+
+
+      if (error) {
+
+        addError.textContent =
+          error.message;
+
+        addError.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      successMessage.textContent =
+        `${carpetID} saved successfully.`;
+
+      successMessage.style.display =
+        "block";
+
+
+      document.getElementById(
+        "clientName"
+      ).value = "";
+
+
+      document.getElementById(
+        "clientPhone"
+      ).value = "";
+
+
+      document.getElementById(
+        "clientAddress"
+      ).value = "";
+
+
+      document.getElementById(
+        "length"
+      ).value = "";
+
+
+      document.getElementById(
+        "width"
+      ).value = "";
+
+
+      document.getElementById(
+        "expectedDate"
+      ).value = "";
+
+
+      document.getElementById(
+        "notes"
+      ).value = "";
+
+
+      document.getElementById(
+        "status"
+      ).value =
+        "Received";
+
+
+      document.getElementById(
+        "priceDisplay"
+      ).textContent =
+        "KSh 0";
+
+
+      await generateNextCarpetID();
+
+      await loadCarpets();
+
+    }
+
+
+    async function loadCarpets() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+
+          .from("carpet_orders")
+
+          .select(
+            'carpet_id, Clients_name, "Clients_Phone number", Clients_Address, Notes, length, width, price, expected_ready_date, status, updated_at'
+          )
+
+          .order(
+            "updated_at",
+            {
+              ascending: false
+            }
+          );
+
+
+      if (error) {
+
+        console.error(error);
+
+        return;
+
+      }
+
+
+      allCarpets =
+        data || [];
+
+
+      updateStatistics();
+
+      renderTable(
+        allCarpets
+      );
+
+    }
+
+
+    function updateStatistics() {
+
+      document.getElementById(
+        "totalCount"
+      ).textContent =
+        allCarpets.length;
+
+
+      document.getElementById(
+        "receivedCount"
+      ).textContent =
+        allCarpets.filter(
+          carpet =>
+            carpet.status === "Received"
         ).length;
 
 
-    document.getElementById("readyCount")
-        .innerText =
-        data.filter(
-            item => item.status === "Ready"
+      document.getElementById(
+        "readyCount"
+      ).textContent =
+        allCarpets.filter(
+          carpet =>
+            carpet.status === "Ready"
         ).length;
 
 
-    document.getElementById("deliveredCount")
-        .innerText =
-        data.filter(
-            item => item.status === "Delivered"
+      document.getElementById(
+        "deliveredCount"
+      ).textContent =
+        allCarpets.filter(
+          carpet =>
+            carpet.status === "Delivered"
         ).length;
 
-}
+    }
 
 
-/* DISPLAY CARPETS */
+    function renderTable(carpets) {
 
-function displayCarpets(data) {
-
-    const table =
-        document.getElementById("carpetTable");
-
-    table.innerHTML = "";
+      const tbody =
+        document.getElementById(
+          "ordersTableBody"
+        );
 
 
-    data.forEach(item => {
+      tbody.innerHTML = "";
+
+
+      carpets.forEach(carpet => {
 
         const row =
-            document.createElement("tr");
+          document.createElement(
+            "tr"
+          );
 
 
-        let expectedDate = "-";
-
-        if (item.expected_ready_date) {
-
-            const date =
-                new Date(
-                    item.expected_ready_date +
-                    "T00:00:00"
-                );
-
-            expectedDate =
-                date.toLocaleDateString(
-                    "en-GB"
-                );
-
-        }
+        const qrUrl =
+          `https://annekairu097-create.github.io/carpet-cleaning-system/track.html?id=${encodeURIComponent(carpet.carpet_id)}`;
 
 
-        let updatedDate = "-";
+        const qrImage =
+          `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrUrl)}`;
 
-        if (item.updated_at) {
 
-            updatedDate =
-                new Date(
-                    item.updated_at
-                ).toLocaleString(
-                    "en-GB",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }
-                );
+        const readyDate =
+          carpet.expected_ready_date
+            ? new Date(
+                carpet.expected_ready_date
+              ).toLocaleDateString(
+                "en-GB",
+                {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric"
+                }
+              )
+            : "Not set";
 
-        }
+
+        const updated =
+          carpet.updated_at
+            ? new Date(
+                carpet.updated_at
+              ).toLocaleString(
+                "en-GB",
+                {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }
+              )
+            : "Not available";
 
 
         row.innerHTML = `
 
-            <td>
-                <strong>${item.carpet_id}</strong>
-            </td>
+          <td>
+            <strong>
+              ${escapeHtml(carpet.carpet_id)}
+            </strong>
+          </td>
 
-            <td>${item.length} ft</td>
 
-            <td>${item.width} ft</td>
+          <td>
+            ${escapeHtml(carpet.Clients_name || "-")}
+          </td>
 
-            <td>
-                KSh ${Number(item.price).toLocaleString()}
-            </td>
 
-            <td>${expectedDate}</td>
+          <td>
+            ${escapeHtml(carpet["Clients_Phone number"] || "-")}
+          </td>
 
-            <td>${updatedDate}</td>
 
-            <td>
+          <td>
+            ${escapeHtml(carpet.Clients_Address || "-")}
+          </td>
 
-                <select
-                    class="status-select"
-                    id="status-${item.carpet_id}"
-                >
 
-                    <option value="Received"
-                        ${item.status === "Received" ? "selected" : ""}>
-                        Received
-                    </option>
+          <td>
+            ${carpet.length} × ${carpet.width} ft
+          </td>
 
-                    <option value="Processing"
-                        ${item.status === "Processing" ? "selected" : ""}>
-                        Processing
-                    </option>
 
-                    <option value="Ready"
-                        ${item.status === "Ready" ? "selected" : ""}>
-                        Ready
-                    </option>
+          <td>
+            KSh ${Number(carpet.price).toLocaleString()}
+          </td>
 
-                    <option value="Out for Delivery"
-                        ${item.status === "Out for Delivery" ? "selected" : ""}>
-                        Out for Delivery
-                    </option>
 
-                    <option value="Delivered"
-                        ${item.status === "Delivered" ? "selected" : ""}>
-                        Delivered
-                    </option>
+          <td>
+            ${readyDate}
+          </td>
 
-                </select>
 
-            </td>
+          <td>
 
-            <td>
+            <select
+              class="status-select"
+              onchange="updateStatus(
+                '${escapeAttribute(carpet.carpet_id)}',
+                this.value
+              )"
+            >
 
-                <button
-                    class="update-button"
-                    onclick="updateStatus('${item.carpet_id}')"
-                >
-                    Save
-                </button>
+              <option
+                value="Received"
+                ${carpet.status === "Received" ? "selected" : ""}
+              >
+                Received
+              </option>
 
-            </td>
 
-            <td>
+              <option
+                value="Ready"
+                ${carpet.status === "Ready" ? "selected" : ""}
+              >
+                Ready
+              </option>
 
-                <div
-                    class="qr"
-                    id="qr-${item.carpet_id}"
-                ></div>
 
-            </td>
+              <option
+                value="Out for Delivery"
+                ${carpet.status === "Out for Delivery" ? "selected" : ""}
+              >
+                Out for Delivery
+              </option>
 
-            <td>
 
-                <button
-                    class="download-button"
-                    onclick="downloadQR('${item.carpet_id}')"
-                >
-                    Download
-                </button>
+              <option
+                value="Delivered"
+                ${carpet.status === "Delivered" ? "selected" : ""}
+              >
+                Delivered
+              </option>
 
-            </td>
+            </select>
+
+          </td>
+
+
+          <td>
+            ${updated}
+          </td>
+
+
+          <td>
+
+            <div class="qr-box">
+
+              <img
+                src="${qrImage}"
+                alt="QR Code"
+              >
+
+              <a
+                class="qr-download"
+                href="${qrImage}"
+                download="${carpet.carpet_id}-QR.png"
+                target="_blank"
+              >
+                Download QR
+              </a>
+
+            </div>
+
+          </td>
+
+
+          <td>
+            ${escapeHtml(carpet.Notes || "-")}
+          </td>
 
         `;
 
 
-        table.appendChild(row);
+        tbody.appendChild(row);
+
+      });
+
+    }
 
 
-        generateQR(item.carpet_id);
+    async function updateStatus(
+      carpetID,
+      newStatus
+    ) {
 
-    });
-
-}
-
-
-/* UPDATE STATUS */
-
-async function updateStatus(carpetID) {
-
-    const newStatus =
-        document.getElementById(
-            "status-" + carpetID
-        ).value;
-
-
-    const { error } =
+      const {
+        error
+      } =
         await supabaseClient
-            .from("carpet_orders")
-            .update({
 
-                status: newStatus,
+          .from("carpet_orders")
 
-                updated_at:
-                    new Date().toISOString()
+          .update({
 
-            })
-            .eq(
-                "carpet_id",
-                carpetID
-            );
+            status:
+              newStatus,
+
+            updated_at:
+              new Date().toISOString()
+
+          })
+
+          .eq(
+            "carpet_id",
+            carpetID
+          );
 
 
-    if (error) {
+      if (error) {
 
         alert(
-            "Error updating status: " +
-            error.message
+          "Could not update status: " +
+          error.message
         );
 
         return;
+
+      }
+
+
+      await loadCarpets();
+
     }
 
 
-    loadCarpets();
+    function filterTable() {
 
-}
-
-
-/* QR CODE */
-
-function generateQR(carpetID) {
-
-    const container =
+      const search =
         document.getElementById(
-            "qr-" + carpetID
+          "searchInput"
+        ).value
+          .trim()
+          .toLowerCase();
+
+
+      if (!search) {
+
+        renderTable(
+          allCarpets
         );
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-
-    const trackURL =
-        "https://annekairu097-create.github.io/carpet-cleaning-system/track.html?id=" +
-        encodeURIComponent(carpetID);
-
-
-    new QRCode(container, {
-
-        text: trackURL,
-
-        width: 100,
-
-        height: 100
-
-    });
-
-}
-
-
-/* DOWNLOAD QR */
-
-function downloadQR(carpetID) {
-
-    const container =
-        document.getElementById(
-            "qr-" + carpetID
-        );
-
-    const canvas =
-        container.querySelector("canvas");
-
-    if (!canvas) {
-
-        alert("QR code not ready yet.");
 
         return;
-    }
+
+      }
 
 
-    const link =
-        document.createElement("a");
+      const filtered =
+        allCarpets.filter(
+          carpet => {
 
-    link.download =
-        carpetID + "-QR.png";
-
-    link.href =
-        canvas.toDataURL("image/png");
-
-    link.click();
-
-}
+            const id =
+              String(
+                carpet.carpet_id || ""
+              ).toLowerCase();
 
 
-/* SEARCH */
-
-function filterTable() {
-
-    const search =
-        document
-            .getElementById("search")
-            .value
-            .toLowerCase();
+            const name =
+              String(
+                carpet.Clients_name || ""
+              ).toLowerCase();
 
 
-    const rows =
-        document.querySelectorAll(
-            "#carpetTable tr"
+            const phone =
+              String(
+                carpet["Clients_Phone number"] || ""
+              ).toLowerCase();
+
+
+            return (
+              id.includes(search) ||
+              name.includes(search) ||
+              phone.includes(search)
+            );
+
+          }
         );
 
 
-    rows.forEach(row => {
+      renderTable(
+        filtered
+      );
 
-        const text =
-            row.innerText.toLowerCase();
-
-        row.style.display =
-            text.includes(search)
-                ? ""
-                : "none";
-
-    });
-
-}
+    }
 
 
-/* START */
+    function escapeHtml(value) {
 
-checkSession();
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-</script>
+    }
+
+
+    function escapeAttribute(value) {
+
+      return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+    }
+
+
+    checkSession();
+
+  </script>
 
 </body>
 </html>
