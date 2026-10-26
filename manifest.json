@@ -2,7 +2,7 @@
   "name": "Cleanova Cleaning Solutions",
   "short_name": "Cleanova",
   "description": "Cleanova Cleaning Solutions - Professional carpet cleaning and tracking.",
-  "start_url": "index.html",
+  "start_url": "admin.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#6a1b9a",
