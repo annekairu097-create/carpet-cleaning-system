@@ -1,74 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Carpet Tracking System</title>
+    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cleanova Cleaning Solutions</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #2b2140;
+      background: #ffffff;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #5b1783, #8e44ad);
+      color: white;
+      text-align: center;
+      padding: 55px 20px 60px;
+    }
+
+    .logo {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      margin-bottom: 35px;
+      opacity: 0.95;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin: 0 0 15px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin: 0 auto 25px;
+      max-width: 650px;
+      line-height: 1.6;
+    }
+
+    .promise {
+      display: inline-block;
+      background: white;
+      color: #6a1b9a;
+      padding: 13px 22px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 25px;
+      background: #ffffff;
+      color: #6a1b9a;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .button:hover {
+      background: #f2eafa;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .section h2 {
+      text-align: center;
+      color: #5b1783;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      text-align: center;
+      color: #666;
+      max-width: 650px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .service {
+      background: #faf7fc;
+      border-radius: 15px;
+      padding: 25px 15px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .service-icon {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .service h3 {
+      margin: 0;
+      color: #5b1783;
+      font-size: 17px;
+    }
+
+    .why {
+      background: #f7f3fa;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .benefit {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .benefit-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .benefit h3 {
+      color: #5b1783;
+      margin: 5px 0 10px;
+    }
+
+    .benefit p {
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .tracking {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .tracking-box {
+      max-width: 650px;
+      margin: 25px auto 0;
+      background: #faf7fc;
+      border-radius: 18px;
+      padding: 30px 20px;
+    }
+
+    .tracking-box p {
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .track-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 14px 25px;
+      background: #7b1fa2;
+      color: white;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .track-button:hover {
+      background: #641683;
+    }
+
+    /* CONTACT / BOOKING SECTION */
+
+    .contact-section {
+      background: linear-gradient(135deg, #5b1783, #8e44ad);
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    .contact-section h2 {
+      margin: 0 0 12px;
+      font-size: 30px;
+    }
+
+    .contact-section p {
+      max-width: 650px;
+      margin: 0 auto 15px;
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .contact-details {
+      margin: 20px auto 25px;
+      max-width: 650px;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-button {
+      display: inline-block;
+      padding: 14px 24px;
+      background: white;
+      color: #6a1b9a;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: 700;
+    }
+
+    .contact-button:hover {
+      background: #f2eafa;
+    }
+
+    .footer {
+      background: #2b2140;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer strong {
+      font-size: 18px;
+    }
+
+    @media (max-width: 800px) {
+
+      .services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+    }
+
+    @media (max-width: 500px) {
+
+      .hero {
+        padding: 40px 18px 45px;
+      }
+
+      .logo {
+        font-size: 34px;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .services {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .service {
+        padding: 20px 10px;
+      }
+
+      .service-icon {
+        font-size: 32px;
+      }
+
+      .service h3 {
+        font-size: 14px;
+      }
+
+    }
+  </style>
 </head>
 
 <body>
 
-    <h1>🧼 Carpet Care</h1>
-    <h2>Carpet Tracking System</h2>
+  <!-- HERO -->
 
-    <p><strong>Carpet ID:</strong> CC-0001</p>
-    <p><strong>Size:</strong> 5 × 7 ft</p>
-    <p><strong>Price:</strong> KSh 1,050</p>
+  <section class="hero">
 
-    <h3>Order Status</h3>
-    <p>🟡 Your carpet has been received and is being processed.</p>
+    <div class="logo">
+      Cleanova
+    </div>
 
-    <h3>Estimated Ready Date</h3>
-    <p>22 October 2026</p>
+    <div class="tagline">
+      Cleaning Solutions
+    </div>
+
+    <h1>
+      Professional Carpet Cleaning
+    </h1>
+
+    <p>
+      Fresh, clean and beautifully maintained carpets without the long wait.
+    </p>
+
+    <div class="promise">
+      🚚 Cleaned &amp; Delivered Within 24 Hours
+    </div>
+
+    <br>
+
+    <a href="track.html" class="button">
+      Track Your Carpet
+    </a>
+
+  </section>
 
 
-    <hr>
+  <!-- SERVICES -->
 
-    <h2>💰 Carpet Price Calculator</h2>
+  <section class="section">
 
-    <p>Our cleaning price is <strong>KSh 30 per square foot.</strong></p>
+    <h2>
+      Our Services
+    </h2>
 
-    <label for="length">Carpet Length (ft):</label>
-    <input type="number" id="length" placeholder="e.g. 5">
+    <p class="section-intro">
+      Professional cleaning solutions for homes, businesses and everyday spaces.
+    </p>
+
+    <div class="services">
+
+      <div class="service">
+        <div class="service-icon">🧼</div>
+        <h3>Carpet Cleaning</h3>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🛋️</div>
+        <h3>Couch &amp; Upholstery Cleaning</h3>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🛏️</div>
+        <h3>Mattress Cleaning</h3>
+      </div>
+
+      <div class="service">
+        <div class="service-icon">🏢</div>
+        <h3>Office Cleaning</h3>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- WHY CLEANOVA -->
+
+  <section class="section why">
+
+    <h2>
+      Why Choose Cleanova?
+    </h2>
+
+    <p class="section-intro">
+      We make professional cleaning convenient, reliable and simple.
+    </p>
+
+    <div class="benefits">
+
+      <div class="benefit">
+
+        <div class="benefit-icon">
+          ⚡
+        </div>
+
+        <h3>
+          24-Hour Service
+        </h3>
+
+        <p>
+          Your carpets are cleaned and delivered within 24 hours.
+        </p>
+
+      </div>
+
+
+      <div class="benefit">
+
+        <div class="benefit-icon">
+          ✨
+        </div>
+
+        <h3>
+          Professional Cleaning
+        </h3>
+
+        <p>
+          We focus on giving your carpets and upholstery a fresh, clean finish.
+        </p>
+
+      </div>
+
+
+      <div class="benefit">
+
+        <div class="benefit-icon">
+          📱
+        </div>
+
+        <h3>
+          Easy Tracking
+        </h3>
+
+        <p>
+          Use your Carpet ID or QR code to check your order status anytime.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TRACKING -->
+
+  <section class="tracking">
+
+    <h2>
+      Track Your Carpet
+    </h2>
+
+    <div class="tracking-box">
+
+      <p>
+        Already have a Cleanova Carpet ID?
+        Track your carpet's status and see when it is ready for delivery.
+      </p>
+
+      <a href="track.html" class="track-button">
+        Track My Carpet
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACT / BOOKING -->
+
+  <section class="contact-section">
+
+    <h2>
+      Ready for a Cleaner Space?
+    </h2>
+
+    <p>
+      Let Cleanova take care of the cleaning.
+    </p>
+
+    <div class="contact-details">
+
+      🧼 Professional cleaning<br>
+
+      🚚 Carpets cleaned &amp; delivered within 24 hours<br>
+
+      📍 Serving Kiambu &amp; Kiambu Road and surrounding areas
+
+    </div>
+
+    <div class="contact-buttons">
+
+      <a href="#" class="contact-button">
+        Book a Cleaning
+      </a>
+
+      <a href="track.html" class="contact-button">
+        Track Your Carpet
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <strong>
+      Cleanova Cleaning Solutions
+    </strong>
+
+    <br>
+
+    Professional Cleaning • Reliable Service • 24-Hour Carpet Delivery
 
     <br><br>
 
-    <label for="width">Carpet Width (ft):</label>
-    <input type="number" id="width" placeholder="e.g. 7">
+    © 2026 Cleanova Cleaning Solutions
 
-    <br><br>
-
-    <button onclick="calculatePrice()">Calculate Price</button>
-
-    <h3>Result</h3>
-
-    <p id="result"></p>
-
-
-    <script>
-
-        function calculatePrice() {
-
-            let length = parseFloat(document.getElementById("length").value);
-            let width = parseFloat(document.getElementById("width").value);
-
-            if (length <= 0 || width <= 0 || isNaN(length) || isNaN(width)) {
-
-                document.getElementById("result").innerHTML =
-                    "Please enter a valid length and width.";
-
-                return;
-            }
-
-            let area = length * width;
-            let price = area * 30;
-
-            document.getElementById("result").innerHTML =
-                "Carpet Area: " + area.toFixed(2) + " sq ft" +
-                "<br>Cleaning Price: KSh " + price.toLocaleString("en-KE");
-
-        }
-
-    </script>
+  </footer>
 
 </body>
 </html>

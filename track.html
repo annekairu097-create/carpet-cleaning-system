@@ -1,1304 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cleanova Cleaning Solutions - Track Your Carpet</title>
-
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f3fc;
-            color: #222;
-        }
-
-
-        /* HEADER */
-
-        .header {
-            background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-        }
-
-
-        .logo-icon {
-            font-size: 42px;
-            margin-bottom: 5px;
-        }
-
-
-        .header h1 {
-            margin: 0;
-            font-size: 38px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-
-        .header p {
-            margin: 8px 0 0;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-
-
-        .tagline {
-            margin-top: 12px;
-            font-size: 14px;
-            font-style: italic;
-            opacity: 0.95;
-        }
-
-
-        /* MAIN CONTAINER */
-
-        .container {
-            max-width: 650px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-
-        /* CARD */
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 5px 25px rgba(75, 22, 140, 0.12);
-        }
-
-
-        .card h2 {
-            margin-top: 0;
-            color: #4b168c;
-            text-align: center;
-            font-size: 26px;
-        }
-
-
-        .intro {
-            text-align: center;
-            color: #666;
-            margin-bottom: 28px;
-        }
-
-
-        /* SEARCH */
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-
-        .search-box input {
-            flex: 1;
-            padding: 14px;
-            border: 1px solid #d4c5e8;
-            border-radius: 9px;
-            font-size: 16px;
-            outline: none;
-        }
-
-
-        .search-box input:focus {
-            border-color: #7b2cbf;
-        }
-
-
-        .search-box button {
-            padding: 14px 22px;
-            border: none;
-            border-radius: 9px;
-            background: #7b2cbf;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-
-        .search-box button:hover {
-            background: #5a189a;
-        }
-
-
-        /* DETAILS */
-
-        .details {
-            margin-top: 25px;
-        }
-
-
-        .details h3 {
-            color: #4b168c;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 12px;
-        }
-
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid #f0edf5;
-        }
-
-
-        .label {
-            color: #666;
-        }
-
-
-        .value {
-            font-weight: bold;
-            color: #333;
-        }
-
-
-        /* STATUS */
-
-        .status-box {
-            margin-top: 28px;
-            padding: 22px;
-            border-radius: 14px;
-            background: #f4edff;
-            border: 1px solid #e2d2f7;
-            text-align: center;
-        }
-
-
-        .status-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-
-        .status {
-            font-size: 21px;
-            font-weight: bold;
-            color: #5a189a;
-        }
-
-
-        /* LOADING */
-
-        .loading {
-            text-align: center;
-            color: #666;
-            padding: 20px;
-        }
-
-
-        /* ERROR */
-
-        .error {
-            background: #fff1f3;
-            color: #b00020;
-            padding: 16px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-
-        /* FOOTER */
-
-        .footer {
-            text-align: center;
-            color: #777;
-            font-size: 13px;
-            margin: 30px 0;
-        }
-
-
-        .footer strong {
-            color: #5a189a;
-        }
-
-
-        /* MOBILE */
-
-        @media (max-width: 500px) {
-
-            .search-box {
-                flex-direction: column;
-            }
-
-
-            .search-box button {
-                width: 100%;
-            }
-
-
-            .card {
-                padding: 22px;
-            }
-
-
-            .header h1 {
-                font-size: 32px;
-            }
-
-
-            .info-row {
-                gap: 15px;
-            }
-
-        }
-
-    </style>
-
+    <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Track Your Carpet | Cleanova Cleaning Solutions</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f4fb;
+      color: #2b2140;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #6a1b9a, #8e44ad);
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      opacity: 0.95;
+      margin-bottom: 18px;
+    }
+
+    .headline {
+      font-size: 25px;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .promise {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .services {
+      max-width: 900px;
+      margin: 25px auto 0;
+      padding: 0 20px;
+    }
+
+    .services h2 {
+      text-align: center;
+      margin-bottom: 18px;
+      color: #5b1783;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px 10px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .service-icon {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .tracking-section {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .tracking-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .tracking-card h2 {
+      margin-top: 0;
+      text-align: center;
+      color: #5b1783;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #d6cde0;
+      border-radius: 9px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #7b1fa2;
+    }
+
+    button {
+      background: #7b1fa2;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 13px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #641683;
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .details {
+      display: grid;
+      gap: 10px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px;
+      background: #faf8fc;
+      border-radius: 8px;
+    }
+
+    .detail-label {
+      color: #666;
+      font-weight: 600;
+    }
+
+    .detail-value {
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .status-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .status-received {
+      background: #fff4cc;
+      color: #856404;
+    }
+
+    .status-ready {
+      background: #dff5e3;
+      color: #187a2f;
+    }
+
+    .status-delivery {
+      background: #e4f0ff;
+      color: #1769aa;
+    }
+
+    .status-delivered {
+      background: #dff5e3;
+      color: #187a2f;
+    }
+
+    .last-updated {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .error {
+      background: #fde8e8;
+      color: #a61b1b;
+    }
+
+    .loading {
+      background: #eee7f5;
+      color: #5b1783;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 25px 20px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .headline {
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .search-box {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      .detail-row {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .detail-value {
+        text-align: left;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+  <header class="header">
+    <div class="logo">Cleanova</div>
+    <div class="tagline">Cleaning Solutions</div>
 
-    <!-- HEADER -->
+    <h1 class="headline">Professional Carpet Cleaning</h1>
 
-    <div class="header">
-
-        <div class="logo-icon">
-            ✨
-        </div>
-
-        <h1>Cleanova</h1>
-
-        <p>Cleaning Solutions</p>
-
-        <div class="tagline">
-            Cleaner Spaces • Healthier Living
-        </div>
-
-    </div>
+    <p class="promise">
+      Cleaned &amp; Delivered Within 24 Hours
+    </p>
+  </header>
 
 
+  <section class="services">
 
-    <!-- MAIN CONTENT -->
+    <h2>Our Services</h2>
 
-    <div class="container">
+    <div class="service-grid">
 
-        <div class="card">
+      <div class="service-card">
+        <span class="service-icon">🧼</span>
+        Carpet Cleaning
+      </div>
 
-            <h2>Track Your Carpet</h2>
+      <div class="service-card">
+        <span class="service-icon">🛋️</span>
+        Couch &amp; Upholstery Cleaning
+      </div>
 
-            <p class="intro">
-                Enter your Carpet ID below to view your carpet information.
-            </p>
+      <div class="service-card">
+        <span class="service-icon">🛏️</span>
+        Mattress Cleaning
+      </div>
 
-
-            <!-- SEARCH BOX -->
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="carpetId"
-                    placeholder="e.g. CC-002"
-                >
-
-                <button onclick="trackCarpet()">
-                    Track
-                </button>
-
-            </div>
-
-
-            <!-- RESULTS -->
-
-            <div id="carpetDetails"></div>
-
-        </div>
-
-
-        <!-- FOOTER -->
-
-        <div class="footer">
-
-            <strong>Cleanova Cleaning Solutions</strong>
-
-            <br>
-
-            Professional • Reliable • Trusted
-
-            <br><br>
-
-            © 2026 Cleanova Cleaning Solutions
-
-        </div>
+      <div class="service-card">
+        <span class="service-icon">🏢</span>
+        Office Cleaning
+      </div>
 
     </div>
 
+  </section>
 
 
-    <!-- SUPABASE -->
+  <section class="tracking-section">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <div class="tracking-card">
 
+      <h2>Track Your Carpet</h2>
 
-    <script>
+      <p class="intro">
+        Enter your Carpet ID below to check the status of your carpet,
+        expected ready date, price and delivery progress.
+      </p>
 
 
-        const SUPABASE_URL =
-            "https://zrqbawumswnoxfovsyoe.supabase.co";
+      <div class="search-box">
 
+        <input
+          type="text"
+          id="carpetIdInput"
+          placeholder="Enter Carpet ID e.g. CC-001"
+          autocomplete="off"
+        >
 
-        const SUPABASE_KEY =
-            "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
+        <button onclick="trackCarpet()">
+          Track
+        </button>
 
+      </div>
 
-        const supabaseClient =
-            supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_KEY
-            );
 
+      <div id="loadingMessage" class="message loading">
+        Checking your carpet...
+      </div>
 
 
-        async function trackCarpet() {
+      <div id="errorMessage" class="message error">
+        We could not find that Carpet ID.
+      </div>
 
 
-            const carpetId =
-                document.getElementById("carpetId")
-                    .value
-                    .trim()
-                    .toUpperCase();
+      <div id="result" class="result">
 
+        <div class="details">
 
-            if (carpetId === "") {
+          <div class="detail-row">
+            <span class="detail-label">Carpet ID</span>
+            <span class="detail-value" id="carpetId"></span>
+          </div>
 
-                document.getElementById("carpetDetails").innerHTML =
+          <div class="detail-row">
+            <span class="detail-label">Carpet Size</span>
+            <span class="detail-value" id="carpetSize"></span>
+          </div>
 
-                    '<div class="error">' +
+          <div class="detail-row">
+            <span class="detail-label">Price</span>
+            <span class="detail-value" id="price"></span>
+          </div>
 
-                    '⚠️ Please enter your Carpet ID.' +
+          <div class="detail-row">
+            <span class="detail-label">Expected Ready Date</span>
+            <span class="detail-value" id="expectedDate"></span>
+          </div>
 
-                    '</div>';
+        </div>
 
-                return;
 
-            }
+        <div id="statusBox" class="status-box"></div>
 
 
-            document.getElementById("carpetDetails").innerHTML =
+        <div class="last-updated">
+          Last Updated:
+          <span id="updatedAt"></span>
+        </div>
 
-                '<div class="loading">' +
+      </div>
 
-                '🔍 Searching for your carpet...' +
+    </div>
 
-                '</div>';
+  </section>
 
 
+  <footer class="footer">
+    © 2026 Cleanova Cleaning Solutions
+    <br>
+    Professional Cleaning • Reliable Service • 24-Hour Carpet Delivery
+  </footer>
 
-            const { data, error } =
 
-                await supabaseClient
+  <script>
 
-                    .from("carpet_orders")
+    const SUPABASE_URL =
+      "https://zrqbawumswnoxfovsyoe.supabase.co";
 
-                    .select(
-                        "carpet_id, length, width, price, status"
-                    )
+    const SUPABASE_KEY =
+      "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
 
-                    .ilike(
-                        "carpet_id",
-                        carpetId
-                    )
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-                    .limit(1);
 
+    function showLoading(show) {
 
+      document.getElementById("loadingMessage").style.display =
+        show ? "block" : "none";
 
-            if (error) {
+    }
 
-                console.error(error);
 
-                document.getElementById("carpetDetails").innerHTML =
+    function showError(show) {
 
-                    '<div class="error">' +
+      document.getElementById("errorMessage").style.display =
+        show ? "block" : "none";
 
-                    '❌ There was a problem connecting to the tracking system.' +
+    }
 
-                    '</div>';
 
-                return;
+    function formatDate(dateValue) {
 
-            }
+      if (!dateValue) {
+        return "Not specified";
+      }
 
+      const date = new Date(dateValue);
 
+      return date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
 
-            const carpet =
+    }
 
-                data && data.length > 0
 
-                    ? data[0]
+    function formatDateTime(dateValue) {
 
-                    : null;
+      if (!dateValue) {
+        return "Not available";
+      }
 
+      const date = new Date(dateValue);
 
+      return date.toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
 
-            if (!carpet) {
+    }
 
-                document.getElementById("carpetDetails").innerHTML =
 
-                    '<div class="error">' +
+    function getStatusDetails(status) {
 
-                    '❌ We could not find that Carpet ID.' +
+      switch (status) {
 
-                    '<br><br>' +
+        case "Received":
 
-                    'Please check the ID and try again.' +
+          return {
+            text: "🟡 Carpet Received",
+            className: "status-received"
+          };
 
-                    '</div>';
 
-                return;
+        case "Ready":
 
-            }
+          return {
+            text: "🟢 Carpet Ready",
+            className: "status-ready"
+          };
 
 
+        case "Out for Delivery":
 
-            /*
-             * Customer-friendly status
-             */
+          return {
+            text: "🚚 Out for Delivery",
+            className: "status-delivery"
+          };
 
-            let customerStatus =
 
-                carpet.status;
+        case "Delivered":
 
+          return {
+            text: "✅ Delivered",
+            className: "status-delivered"
+          };
 
 
-            if (carpet.status === "Received") {
+        default:
 
-                customerStatus =
-                    "🟡 Carpet Received";
+          return {
+            text: "Status Unavailable",
+            className: "status-received"
+          };
 
-            }
+      }
 
-            else if (carpet.status === "Processing") {
+    }
 
-                customerStatus =
-                    "🔵 Carpet Being Processed";
 
-            }
+    async function trackCarpet() {
 
-            else if (carpet.status === "Ready") {
+      const input =
+        document.getElementById("carpetIdInput");
 
-                customerStatus =
-                    "🟢 Ready for Collection";
+      const carpetId =
+        input.value.trim().toUpperCase();
 
-            }
 
-            else if (carpet.status === "Out for Delivery") {
+      document.getElementById("result").style.display = "none";
 
-                customerStatus =
-                    "🚚 Out for Delivery";
+      showError(false);
 
-            }
 
-            else if (carpet.status === "Delivered") {
+      if (!carpetId) {
 
-                customerStatus =
-                    "✅ Delivered";
+        showError(true);
 
-            }
+        document.getElementById("errorMessage").textContent =
+          "Please enter your Carpet ID.";
 
+        return;
 
+      }
 
-            /*
-             * Display carpet information
-             */
 
-            document.getElementById("carpetDetails").innerHTML =
+      showLoading(true);
 
-                '<div class="details">' +
 
-                '<h3>Carpet Information</h3>' +
+      const { data, error } = await supabaseClient
 
+        .from("carpet_orders")
 
-                '<div class="info-row">' +
+        .select(
+          "carpet_id, length, width, price, expected_ready_date, status, updated_at"
+        )
 
-                '<span class="label">' +
-                'Carpet ID' +
-                '</span>' +
+        .eq("carpet_id", carpetId)
 
-                '<span class="value">' +
-                carpet.carpet_id +
-                '</span>' +
+        .maybeSingle();
 
-                '</div>' +
 
+      showLoading(false);
 
-                '<div class="info-row">' +
 
-                '<span class="label">' +
-                'Size' +
-                '</span>' +
+      if (error || !data) {
 
-                '<span class="value">' +
+        showError(true);
 
-                carpet.length +
+        document.getElementById("errorMessage").textContent =
+          "We could not find that Carpet ID.";
 
-                ' × ' +
+        return;
 
-                carpet.width +
+      }
 
-                ' ft' +
 
-                '</span>' +
+      document.getElementById("carpetId").textContent =
+        data.carpet_id;
 
-                '</div>' +
 
+      document.getElementById("carpetSize").textContent =
+        `${data.length} ft × ${data.width} ft`;
 
-                '<div class="info-row">' +
 
-                '<span class="label">' +
-                'Cleaning Price' +
-                '</span>' +
+      document.getElementById("price").textContent =
+        `KSh ${Number(data.price).toLocaleString()}`;
 
-                '<span class="value">' +
 
-                'KSh ' +
+      document.getElementById("expectedDate").textContent =
+        formatDate(data.expected_ready_date);
 
-                Number(carpet.price)
-                    .toLocaleString("en-KE") +
 
-                '</span>' +
+      document.getElementById("updatedAt").textContent =
+        formatDateTime(data.updated_at);
 
-                '</div>' +
 
+      const statusBox =
+        document.getElementById("statusBox");
 
-                '<div class="status-box">' +
 
-                '<div class="status-title">' +
+      const statusDetails =
+        getStatusDetails(data.status);
 
-                'Current Status' +
 
-                '</div>' +
+      statusBox.textContent =
+        statusDetails.text;
 
 
-                '<div class="status">' +
+      statusBox.className =
+        `status-box ${statusDetails.className}`;
 
-                customerStatus +
 
-                '</div>' +
+      document.getElementById("result").style.display =
+        "block";
 
-                '</div>' +
+    }
 
 
-                '</div>';
+    document
+      .getElementById("carpetIdInput")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+          trackCarpet();
 
         }
 
+      });
 
 
-        /*
-         * AUTOMATIC QR TRACKING
-         *
-         * Example:
-         *
-         * track.html?id=CC-002
-         */
+    function checkUrlForCarpetId() {
+
+      const params =
+        new URLSearchParams(window.location.search);
+
+      const carpetId =
+        params.get("id");
 
 
-        const urlParams =
+      if (carpetId) {
 
-            new URLSearchParams(
+        document.getElementById("carpetIdInput").value =
+          carpetId.toUpperCase();
 
-                window.location.search
+        trackCarpet();
 
-            );
+      }
 
-
-        const carpetIdFromURL =
-
-            urlParams.get("id");
+    }
 
 
-        if (carpetIdFromURL) {
+    checkUrlForCarpetId();
 
-
-            document.getElementById("carpetId").value =
-
-                carpetIdFromURL.toUpperCase();
-
-
-            trackCarpet();
-
-        }
-
-
-    </script>
-
+  </script>
 
 </body>
-
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cleanova Cleaning Solutions - Track Your Carpet</title>
-
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f3fc;
-            color: #222;
-        }
-
-
-        /* HEADER */
-
-        .header {
-            background: linear-gradient(135deg, #4b168c, #7b2cbf, #9d4edd);
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-        }
-
-
-        .logo-icon {
-            font-size: 42px;
-            margin-bottom: 5px;
-        }
-
-
-        .header h1 {
-            margin: 0;
-            font-size: 38px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-
-        .header p {
-            margin: 8px 0 0;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-
-
-        .tagline {
-            margin-top: 12px;
-            font-size: 14px;
-            font-style: italic;
-            opacity: 0.95;
-        }
-
-
-        /* MAIN CONTAINER */
-
-        .container {
-            max-width: 650px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-
-        /* CARD */
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 5px 25px rgba(75, 22, 140, 0.12);
-        }
-
-
-        .card h2 {
-            margin-top: 0;
-            color: #4b168c;
-            text-align: center;
-            font-size: 26px;
-        }
-
-
-        .intro {
-            text-align: center;
-            color: #666;
-            margin-bottom: 28px;
-        }
-
-
-        /* SEARCH */
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-
-        .search-box input {
-            flex: 1;
-            padding: 14px;
-            border: 1px solid #d4c5e8;
-            border-radius: 9px;
-            font-size: 16px;
-            outline: none;
-        }
-
-
-        .search-box input:focus {
-            border-color: #7b2cbf;
-        }
-
-
-        .search-box button {
-            padding: 14px 22px;
-            border: none;
-            border-radius: 9px;
-            background: #7b2cbf;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-
-        .search-box button:hover {
-            background: #5a189a;
-        }
-
-
-        /* DETAILS */
-
-        .details {
-            margin-top: 25px;
-        }
-
-
-        .details h3 {
-            color: #4b168c;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 12px;
-        }
-
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid #f0edf5;
-        }
-
-
-        .label {
-            color: #666;
-        }
-
-
-        .value {
-            font-weight: bold;
-            color: #333;
-        }
-
-
-        /* STATUS */
-
-        .status-box {
-            margin-top: 28px;
-            padding: 22px;
-            border-radius: 14px;
-            background: #f4edff;
-            border: 1px solid #e2d2f7;
-            text-align: center;
-        }
-
-
-        .status-title {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
-        }
-
-
-        .status {
-            font-size: 21px;
-            font-weight: bold;
-            color: #5a189a;
-        }
-
-
-        /* LOADING */
-
-        .loading {
-            text-align: center;
-            color: #666;
-            padding: 20px;
-        }
-
-
-        /* ERROR */
-
-        .error {
-            background: #fff1f3;
-            color: #b00020;
-            padding: 16px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-
-        /* FOOTER */
-
-        .footer {
-            text-align: center;
-            color: #777;
-            font-size: 13px;
-            margin: 30px 0;
-        }
-
-
-        .footer strong {
-            color: #5a189a;
-        }
-
-
-        /* MOBILE */
-
-        @media (max-width: 500px) {
-
-            .search-box {
-                flex-direction: column;
-            }
-
-
-            .search-box button {
-                width: 100%;
-            }
-
-
-            .card {
-                padding: 22px;
-            }
-
-
-            .header h1 {
-                font-size: 32px;
-            }
-
-
-            .info-row {
-                gap: 15px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body>
-
-
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <div class="logo-icon">
-            ✨
-        </div>
-
-        <h1>Cleanova</h1>
-
-        <p>Cleaning Solutions</p>
-
-        <div class="tagline">
-            Cleaner Spaces • Healthier Living
-        </div>
-
-    </div>
-
-
-
-    <!-- MAIN CONTENT -->
-
-    <div class="container">
-
-        <div class="card">
-
-            <h2>Track Your Carpet</h2>
-
-            <p class="intro">
-                Enter your Carpet ID below to view your carpet information.
-            </p>
-
-
-            <!-- SEARCH BOX -->
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="carpetId"
-                    placeholder="e.g. CC-002"
-                >
-
-                <button onclick="trackCarpet()">
-                    Track
-                </button>
-
-            </div>
-
-
-            <!-- RESULTS -->
-
-            <div id="carpetDetails"></div>
-
-        </div>
-
-
-        <!-- FOOTER -->
-
-        <div class="footer">
-
-            <strong>Cleanova Cleaning Solutions</strong>
-
-            <br>
-
-            Professional • Reliable • Trusted
-
-            <br><br>
-
-            © 2026 Cleanova Cleaning Solutions
-
-        </div>
-
-    </div>
-
-
-
-    <!-- SUPABASE -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-    <script>
-
-
-        const SUPABASE_URL =
-            "https://zrqbawumswnoxfovsyoe.supabase.co";
-
-
-        const SUPABASE_KEY =
-            "sb_publishable_diRd3bE2htEeEtGJwnr13w_ZDJaa0VE";
-
-
-        const supabaseClient =
-            supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_KEY
-            );
-
-
-
-        async function trackCarpet() {
-
-
-            const carpetId =
-                document.getElementById("carpetId")
-                    .value
-                    .trim()
-                    .toUpperCase();
-
-
-            if (carpetId === "") {
-
-                document.getElementById("carpetDetails").innerHTML =
-
-                    '<div class="error">' +
-
-                    '⚠️ Please enter your Carpet ID.' +
-
-                    '</div>';
-
-                return;
-
-            }
-
-
-            document.getElementById("carpetDetails").innerHTML =
-
-                '<div class="loading">' +
-
-                '🔍 Searching for your carpet...' +
-
-                '</div>';
-
-
-
-            const { data, error } =
-
-                await supabaseClient
-
-                    .from("carpet_orders")
-
-                    .select(
-                        "carpet_id, length, width, price, status"
-                    )
-
-                    .ilike(
-                        "carpet_id",
-                        carpetId
-                    )
-
-                    .limit(1);
-
-
-
-            if (error) {
-
-                console.error(error);
-
-                document.getElementById("carpetDetails").innerHTML =
-
-                    '<div class="error">' +
-
-                    '❌ There was a problem connecting to the tracking system.' +
-
-                    '</div>';
-
-                return;
-
-            }
-
-
-
-            const carpet =
-
-                data && data.length > 0
-
-                    ? data[0]
-
-                    : null;
-
-
-
-            if (!carpet) {
-
-                document.getElementById("carpetDetails").innerHTML =
-
-                    '<div class="error">' +
-
-                    '❌ We could not find that Carpet ID.' +
-
-                    '<br><br>' +
-
-                    'Please check the ID and try again.' +
-
-                    '</div>';
-
-                return;
-
-            }
-
-
-
-            /*
-             * Customer-friendly status
-             */
-
-            let customerStatus =
-
-                carpet.status;
-
-
-
-            if (carpet.status === "Received") {
-
-                customerStatus =
-                    "🟡 Carpet Received";
-
-            }
-
-            else if (carpet.status === "Processing") {
-
-                customerStatus =
-                    "🔵 Carpet Being Processed";
-
-            }
-
-            else if (carpet.status === "Ready") {
-
-                customerStatus =
-                    "🟢 Ready for Collection";
-
-            }
-
-            else if (carpet.status === "Out for Delivery") {
-
-                customerStatus =
-                    "🚚 Out for Delivery";
-
-            }
-
-            else if (carpet.status === "Delivered") {
-
-                customerStatus =
-                    "✅ Delivered";
-
-            }
-
-
-
-            /*
-             * Display carpet information
-             */
-
-            document.getElementById("carpetDetails").innerHTML =
-
-                '<div class="details">' +
-
-                '<h3>Carpet Information</h3>' +
-
-
-                '<div class="info-row">' +
-
-                '<span class="label">' +
-                'Carpet ID' +
-                '</span>' +
-
-                '<span class="value">' +
-                carpet.carpet_id +
-                '</span>' +
-
-                '</div>' +
-
-
-                '<div class="info-row">' +
-
-                '<span class="label">' +
-                'Size' +
-                '</span>' +
-
-                '<span class="value">' +
-
-                carpet.length +
-
-                ' × ' +
-
-                carpet.width +
-
-                ' ft' +
-
-                '</span>' +
-
-                '</div>' +
-
-
-                '<div class="info-row">' +
-
-                '<span class="label">' +
-                'Cleaning Price' +
-                '</span>' +
-
-                '<span class="value">' +
-
-                'KSh ' +
-
-                Number(carpet.price)
-                    .toLocaleString("en-KE") +
-
-                '</span>' +
-
-                '</div>' +
-
-
-                '<div class="status-box">' +
-
-                '<div class="status-title">' +
-
-                'Current Status' +
-
-                '</div>' +
-
-
-                '<div class="status">' +
-
-                customerStatus +
-
-                '</div>' +
-
-                '</div>' +
-
-
-                '</div>';
-
-        }
-
-
-
-        /*
-         * AUTOMATIC QR TRACKING
-         *
-         * Example:
-         *
-         * track.html?id=CC-002
-         */
-
-
-        const urlParams =
-
-            new URLSearchParams(
-
-                window.location.search
-
-            );
-
-
-        const carpetIdFromURL =
-
-            urlParams.get("id");
-
-
-        if (carpetIdFromURL) {
-
-
-            document.getElementById("carpetId").value =
-
-                carpetIdFromURL.toUpperCase();
-
-
-            trackCarpet();
-
-        }
-
-
-    </script>
-
-
-</body>
-
 </html>
