@@ -1,12 +1,15 @@
-```html id="m7k3qp"
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="manifest" href="manifest.json">
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Cleanova Admin Dashboard</title>
+
+  <link rel="manifest" href="manifest.json">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -233,7 +236,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1100px;
+      min-width: 1200px;
     }
 
     th,
@@ -276,6 +279,22 @@
       font-weight: bold;
     }
 
+    .receipt-btn {
+      border: none;
+      background: #6a1b9a;
+      color: white;
+      padding: 8px 11px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .receipt-btn:hover {
+      background: #55147d;
+    }
+
     .search-box {
       margin-bottom: 18px;
     }
@@ -292,6 +311,143 @@
     .small-text {
       color: #777;
       font-size: 12px;
+    }
+
+    /* RECEIPT */
+
+    .receipt-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .receipt-modal {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    }
+
+    .receipt-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .receipt-actions button {
+      flex: 1;
+      padding: 11px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .print-btn {
+      background: #6a1b9a;
+      color: white;
+    }
+
+    .close-btn {
+      background: #eee;
+      color: #333;
+    }
+
+    .receipt {
+      border: 1px solid #ddd;
+      padding: 30px;
+      background: white;
+    }
+
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px solid #6a1b9a;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .receipt-logo {
+      color: #6a1b9a;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .receipt-subtitle {
+      color: #555;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .receipt-promise {
+      margin-top: 10px;
+      color: #6a1b9a;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .receipt-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .receipt-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      margin-bottom: 20px;
+    }
+
+    .receipt-row {
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .receipt-label {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .receipt-value {
+      font-weight: bold;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .receipt-total {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f3e5f5;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .receipt-total-price {
+      color: #6a1b9a;
+      font-size: 20px;
+    }
+
+    .receipt-footer {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 18px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.6;
     }
 
     @media (max-width: 900px) {
@@ -327,6 +483,51 @@
 
       .section {
         padding: 17px;
+      }
+
+      .receipt {
+        padding: 20px;
+      }
+
+      .receipt-info {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+
+      body * {
+        visibility: hidden;
+      }
+
+      .receipt,
+      .receipt * {
+        visibility: visible;
+      }
+
+      .receipt {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none;
+      }
+
+      .receipt-overlay {
+        position: static;
+        display: block;
+        background: white;
+        padding: 0;
+      }
+
+      .receipt-modal {
+        max-width: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .receipt-actions {
+        display: none;
       }
     }
   </style>
@@ -735,49 +936,29 @@
 
               <tr>
 
-                <th>
-                  Carpet ID
-                </th>
+                <th>Carpet ID</th>
 
-                <th>
-                  Client
-                </th>
+                <th>Client</th>
 
-                <th>
-                  Phone
-                </th>
+                <th>Phone</th>
 
-                <th>
-                  Address
-                </th>
+                <th>Address</th>
 
-                <th>
-                  Size
-                </th>
+                <th>Size</th>
 
-                <th>
-                  Price
-                </th>
+                <th>Price</th>
 
-                <th>
-                  Ready Date
-                </th>
+                <th>Ready Date</th>
 
-                <th>
-                  Status
-                </th>
+                <th>Status</th>
 
-                <th>
-                  Last Updated
-                </th>
+                <th>Last Updated</th>
 
-                <th>
-                  QR Code
-                </th>
+                <th>QR Code</th>
 
-                <th>
-                  Notes
-                </th>
+                <th>Receipt</th>
+
+                <th>Notes</th>
 
               </tr>
 
@@ -790,6 +971,44 @@
         </div>
 
       </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- RECEIPT POPUP -->
+
+  <div
+    id="receiptOverlay"
+    class="receipt-overlay"
+  >
+
+    <div class="receipt-modal">
+
+      <div class="receipt-actions">
+
+        <button
+          class="print-btn"
+          onclick="printReceipt()"
+        >
+          🖨️ Print / Save PDF
+        </button>
+
+        <button
+          class="close-btn"
+          onclick="closeReceipt()"
+        >
+          Close
+        </button>
+
+      </div>
+
+
+      <div
+        id="receiptContent"
+        class="receipt"
+      ></div>
 
     </div>
 
@@ -887,7 +1106,8 @@
         );
 
 
-      errorBox.style.display = "none";
+      errorBox.style.display =
+        "none";
 
 
       const {
@@ -1501,6 +1721,18 @@
 
 
           <td>
+
+            <button
+              class="receipt-btn"
+              onclick="showReceipt('${escapeAttribute(carpet.carpet_id)}')"
+            >
+              🧾 Receipt
+            </button>
+
+          </td>
+
+
+          <td>
             ${escapeHtml(carpet.Notes || "-")}
           </td>
 
@@ -1555,6 +1787,270 @@
 
 
       await loadCarpets();
+
+    }
+
+
+    function showReceipt(carpetID) {
+
+      const carpet =
+        allCarpets.find(
+          item =>
+            String(item.carpet_id) === String(carpetID)
+        );
+
+
+      if (!carpet) {
+
+        alert("Receipt information could not be found.");
+
+        return;
+
+      }
+
+
+      const receiptDate =
+        new Date().toLocaleDateString(
+          "en-GB",
+          {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+          }
+        );
+
+
+      const readyDate =
+        carpet.expected_ready_date
+          ? new Date(
+              carpet.expected_ready_date
+            ).toLocaleDateString(
+              "en-GB",
+              {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+              }
+            )
+          : "Not set";
+
+
+      const phone =
+        carpet["Clients_Phone number"] || "-";
+
+
+      const address =
+        carpet.Clients_Address || "-";
+
+
+      const notes =
+        carpet.Notes || "None";
+
+
+      document.getElementById(
+        "receiptContent"
+      ).innerHTML = `
+
+        <div class="receipt-header">
+
+          <div class="receipt-logo">
+            Cleanova
+          </div>
+
+          <div class="receipt-subtitle">
+            Cleaning Solutions
+          </div>
+
+          <div class="receipt-subtitle">
+            Professional Cleaning • Reliable Service
+          </div>
+
+          <div class="receipt-promise">
+            🚚 Carpets Cleaned & Delivered Within 24 Hours
+          </div>
+
+        </div>
+
+
+        <div class="receipt-title">
+          CUSTOMER RECEIPT
+        </div>
+
+
+        <div class="receipt-info">
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Receipt Date
+            </div>
+
+            <div class="receipt-value">
+              ${receiptDate}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Carpet ID
+            </div>
+
+            <div class="receipt-value">
+              ${escapeHtml(carpet.carpet_id)}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Customer Name
+            </div>
+
+            <div class="receipt-value">
+              ${escapeHtml(carpet.Clients_name || "-")}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Phone
+            </div>
+
+            <div class="receipt-value">
+              ${escapeHtml(phone)}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Delivery Address
+            </div>
+
+            <div class="receipt-value">
+              ${escapeHtml(address)}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Carpet Size
+            </div>
+
+            <div class="receipt-value">
+              ${carpet.length} × ${carpet.width} ft
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Expected Ready Date
+            </div>
+
+            <div class="receipt-value">
+              ${readyDate}
+            </div>
+
+          </div>
+
+
+          <div class="receipt-row">
+
+            <div class="receipt-label">
+              Current Status
+            </div>
+
+            <div class="receipt-value">
+              ${escapeHtml(carpet.status || "Received")}
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="receipt-total">
+
+          <span>
+            Total Amount
+          </span>
+
+          <span class="receipt-total-price">
+            KSh ${Number(carpet.price).toLocaleString()}
+          </span>
+
+        </div>
+
+
+        <div class="receipt-row" style="margin-top:20px;">
+
+          <div class="receipt-label">
+            Notes
+          </div>
+
+          <div class="receipt-value">
+            ${escapeHtml(notes)}
+          </div>
+
+        </div>
+
+
+        <div class="receipt-footer">
+
+          <strong>
+            Thank you for choosing Cleanova Cleaning Solutions.
+          </strong>
+
+          <br>
+
+          Professional Cleaning • Reliable Service • 24-Hour Carpet Delivery
+
+          <br>
+
+          Serving Kiambu, Kiambu Road & surrounding areas.
+
+        </div>
+
+      `;
+
+
+      document.getElementById(
+        "receiptOverlay"
+      ).style.display =
+        "flex";
+
+    }
+
+
+    function closeReceipt() {
+
+      document.getElementById(
+        "receiptOverlay"
+      ).style.display =
+        "none";
+
+    }
+
+
+    function printReceipt() {
+
+      window.print();
 
     }
 
